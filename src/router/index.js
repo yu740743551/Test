@@ -22,7 +22,7 @@ export default [
     {
         path: '/extract',
         name: 'extract',
-        meta: { index: 2 },
+        meta: { index: 4 },
         component: Extract
 
     },

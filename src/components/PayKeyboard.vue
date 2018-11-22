@@ -1,7 +1,7 @@
 <template>
 <div class="dialog" v-show="showMask">
     <div class="head">
-            <i class="iconfont iconfonts icon-fanhui" @click="close"></i>
+            <i class="iconfont iconfonts icon-quxiao" @click="close"></i>
     </div>
 	<div class="pay-tool">
 		<div class="pay-tool-top">			
@@ -59,7 +59,6 @@ export default {
       this.$emit("value", val);
       console.log(typeof val.length);
       if (val.length == 6) {
-         
       }
     },
     showBoard() {
@@ -102,7 +101,7 @@ export default {
 .head i {
   color: #fff;
   line-height: 0.4rem;
-  font-size: 0.18rem;
+  font-size: 0.3rem;
   text-align: left;
   padding: 0.1rem;
 }

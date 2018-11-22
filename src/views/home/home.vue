@@ -1,5 +1,5 @@
 <template>
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
     <div class="home">
         <div class="gif">
             <div class="gifs">
@@ -37,64 +37,54 @@
         <div class="minxis">
             <ul>
                 <li class="weight">
-                    <p>来源</p>
+                  
                     <p>类型</p>
                     <p>数量</p>
                 </li>
                 <li >
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
                 <li>
-                    <p>这里是明细来源</p>
                     <p>电费消耗</p>
                     <p>1.5EOS</p>
                 </li>
             </ul>
         </div>
     </div>
-    </van-pull-refresh>
+    <!-- </van-pull-refresh> -->
 </template>
 <script>
     export default {
@@ -283,19 +273,16 @@
     }
     
     .minxis ul li p:nth-of-type(1) {
-        width: 40%;
+        width: 50%;
     }
     
     .minxis ul li p:nth-of-type(2) {
-        width: 30%;
+        width: 50%;
+        color: #e92312;
     }
     
-    .minxis ul li p:nth-of-type(3) {
-        width: 30%;
-    }
-    
-    .minxis ul .weight {
+    .minxis ul .weight p {
         font-size: 0.15rem;
-        color: #838599;
+        color: #838599 !important;
     }
 </style>
