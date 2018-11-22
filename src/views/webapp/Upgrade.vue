@@ -1,32 +1,41 @@
 <template>
     <div class="section">
-        <div class="sections">
             <div class="head">
             <i class="iconfont iconfonts icon-quxiao" @click="goback"></i>
             <span class="title">升级</span>
-            <i class="iconfont  icon-saoyisao1" @click="scan"></i>
+            <!-- <i class="iconfont  icon-saoyisao1" @click="scan"></i> -->
             </div>
             
             <div class="content">
                 <div class="code">
-                    <img  alt="" :src="qrcode_url">
+                    <div class="code_bg">
+                        <img  alt="" src="../../assets/images/code.png">
+                    </div>
                     <h4>官方升级地址（下方地址长按可复制）</h4>
                     <h3>0x8547274222E174999aDA60D64b44b2a699E48390</h3>
-                     <div class="danjia">
+                     <div class="danjia fl_box">
                          <p>单价/EOS</p>
                          <p>20000.00</p>
                     </div>
-                    <div class="heji">
+                    <div class="heji fl_box">
                          <p>合计 <span>x10</span></p>
                          <p>200000.00</p>
                     </div>
                 </div>
+                <div class="file">
+                    <input type="file" class="inputFile" ref="input" @change="fileChange" multiple accept="image/*">
+                    <i class="iconfont icon-shangchuan"></i>
+                    <h3>上传截图</h3>
+                </div>
+                <div class="put">
+                    <p>HX</p>
+                    <input type="text" >
+                </div>
                
                 
-                <p class="btn btn_ture" @click="tosucceed">转账</p>
+                <p class="btn " @click="tosucceed">提交</p>
             
             </div>
-        </div>    
         <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard>
     </div>
     
@@ -44,7 +53,7 @@
 
         data() {
             return {
-              
+              qrcode_url:'../../assets/images/code.png',
             };
         },
         watch: {
@@ -72,13 +81,11 @@
    
     
     .section {
-        height: auto;
+        height: 100vh;
+        overflow: hidden;
     }
     
-    .sections {
-        min-height: 100vh;
-        background: #282D41;
-    }
+   
     
     .head {
         height: 0.7rem;
@@ -101,8 +108,8 @@
     
     .head i {
         color: #fff;
-        line-height: 0.4rem;
-        font-size: 0.18rem;
+        line-height: 0.45rem;
+        font-size: 0.3rem;
         text-align: left;
         padding: 0.1rem;
     }
@@ -110,18 +117,26 @@
     .head i:last-child {
         float: right;
         line-height: normal;
+        font-size: 0.25rem;
     }
     
     .content {
         width: 3rem;
         height: 100%;
-        margin:0.8rem auto 0 auto;
+        margin:0.6rem auto 0 auto;
         .code {
             width: 3rem;
-            height: 2.4rem;
             border-radius: 0.08rem;
-            margin: 0 auto 0.3rem auto;
-            padding: 0.25rem 0;
+            margin: 0 auto;
+            padding: 0.2rem 0;
+            .code_bg{
+                width:1.62rem;
+                height:1.62rem;
+                margin: 0 auto;
+                background: url(../../assets/images/code_bg.png) no-repeat;
+                background-size:100% 100%;
+                padding:0.09rem;
+            }
             h3:first-child {
                 font-size: 0.15rem;
                 color: #000;
@@ -132,19 +147,100 @@
             img {
                 width: 1.44rem;
                 height: 1.44rem;
-                margin: 0.16rem auto 0.21rem auto;
             }
             h4{
                 font-size: 0.1rem;
                 color: #fff;
                 text-align: center;
-                margin-bottom: 0.1rem;
+                margin: 0.1rem 0;
             }
             h3{
                 font-size: 0.12rem;
                  color: #fff;
                  text-align: center;
                  margin-bottom: 0.15rem;
+            }
+            .fl_box{
+                font-size: 0.13rem;
+                color:#fff;
+                display: flex;                
+                p:nth-child(1){
+                     display: inline-block;
+                    width:50%;
+                    text-align: left;
+                    padding-left:0.7rem;
+                }
+                p:nth-child(2){
+                     display: inline-block;
+                    width:50%;
+                    text-align: left;
+                    padding-left:0.2rem;
+                }
+                
+            }
+            .danjia{
+                margin-bottom:0.1rem;
+            }
+            .danjia.fl_box{
+                color:#38D4CB;
+            }
+            .heji.fl_box{
+                color:#F56F6F;
+                p span{
+                    display: inline-block;
+                    width:0.32rem;
+                    height:0.2rem;
+                    line-height: 0.2rem;
+                    text-align: center;
+                    color:#fff;
+                    background: #5F9B8B;
+                }
+            }
+        }
+        .file{
+            width:3rem;
+            height:1.44rem;
+            border: 1px solid #38D4CB;
+            border-radius: 2px;
+            margin:0 auto;
+            position: relative;
+            input{
+                position: absolute;
+                top:0;
+                left: 0;
+                display: block;
+                width:100%;
+                height:100%;
+                opacity: 0;
+            }
+            i{
+                display: inline-block;
+                width:100%;
+                font-size: 0.76rem;
+                color:#38D4CB;
+                text-align: center;
+                margin-top:0.28rem;
+
+            }
+            h3{
+                color:#fff;
+                font-size:0.1rem;
+                text-align: center;
+                margin-top: -0.15rem;
+
+            }
+        }
+        .put{
+            margin:0.2rem auto 0.3rem auto;
+            p{
+                font-size: 0.13rem;
+                color:#fff;
+            }
+            input{
+                width:100%;
+                border-bottom: 1px solid #D6D6D6;
+                background: transparent;
+                color:#fff;
             }
         }
         
@@ -154,14 +250,13 @@
         width: 3rem;
         height: 0.4rem;
         color: #fff;
-        font-size: 0.12rem;
+        font-size: 0.17rem;
         line-height: 0.4rem;
         text-align: center;
         margin: 0 auto;
+        background: #E86161;
+        border:2px solid #C75757;
     }
     
-    .btn_ture {
-        margin: 0 auto 0.08rem auto;
-        background: linear-gradient(-90deg, #21fff6, #0a42ff);
-    }
+    
 </style>
