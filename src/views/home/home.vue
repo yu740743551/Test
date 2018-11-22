@@ -1,41 +1,301 @@
 <template>
-<scroller>
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <div class="home">
-
-        
+        <div class="gif">
+            <div class="gifs">
+                <img class="rotate" src="../../assets/images/wai.png" alt="">
+            </div>
+            <div class="nei">
+                <img class="rotates" src="../../assets/images/nei.png" alt="">
+            </div>
+        </div>
+        <div class="button">
+            <div class="ict">
+                <ul>
+                    <li>全网算力</li>
+                    <li>今日获取算力</li>
+                    <li>可用</li>
+                </ul>
+                <ul>
+                    <li>0000</li>
+                    <li>0000</li>
+                    <li>0000EOS</li>
+                </ul>
+            </div>
+            <div class="tibi">
+                <ul>
+                    <li @click="extract">提币</li>
+                    <li>量化交易</li>
+                </ul>
+            </div>
+            <div class="minxi">
+                <p>明细</p>
+                <img src="../../assets/images/minxi.png" alt="">
+            </div>
+           
+        </div>
+        <div class="minxis">
+            <ul>
+                <li class="weight">
+                    <p>来源</p>
+                    <p>类型</p>
+                    <p>数量</p>
+                </li>
+                <li >
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+                <li>
+                    <p>这里是明细来源</p>
+                    <p>电费消耗</p>
+                    <p>1.5EOS</p>
+                </li>
+            </ul>
+        </div>
     </div>
     </van-pull-refresh>
-    </scroller>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      count: 0,
-      isLoading: false
-    };
-  },
+    export default {
+        data() {
+            return {
+                count: 0,
+                isLoading: false
+            };
+        },
 
-  methods: {
-    onRefresh() {
-      setTimeout(() => {
-        // this.$toast("刷新成功");
-        this.isLoading = false;
-        this.count++;
-      }, 500);
-    }
-  }
-};
+        methods: {
+            onRefresh() {
+                setTimeout(() => {
+                    // this.$toast("刷新成功");
+                    this.isLoading = false;
+                    this.count++;
+                }, 500);
+            },
+            extract() {
+                this.$router.push({
+                    "name": "extract"
+                })
+            }
+        }
+    };
 </script>
 <style lang="scss" scoped>
-.home {
-  min-height: 100vh;
-  .p1 {
-    width: 100%;
-    text-align: center;
-    line-height: 0.3rem;
-    font-size: 0.14rem;
-  }
-}
+    .home {
+        min-height: 100vh;
+        .p1 {
+            width: 100%;
+            text-align: center;
+            line-height: 0.3rem;
+            font-size: 0.14rem;
+        }
+    }
+    
+    .gif {
+        width: 100%;
+        height: 2.36rem;
+        position: relative;
+        background: url(../../assets/images/bg.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    
+    @keyframes rotate {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    .rotate {
+        transition: 0.1s;
+        transform-origin: 30px 30px;
+        animation: rotate 1s linear infinite;
+        /*开始动画后无限循环，用来控制rotate*/
+        transform-origin: center center;
+        color: #fff;
+        width: 100%;
+    }
+    
+    .gifs {
+        width: 1.7rem;
+        height: 1.7rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    .nei {
+        width: 1.6rem;
+        height: 1.6rem;
+        position: absolute;
+        left: 49.5%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+    
+    @keyframes rotates {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate(-360deg);
+        }
+    }
+    
+    .rotates {
+        transition: 0.1s;
+        transform-origin: 30px 30px;
+        animation: rotates 1s linear infinite;
+        /*开始动画后无限循环，用来控制rotate*/
+        transform-origin: center center;
+        color: #fff;
+        width: 100%;
+    }
+    
+    .ict {
+        width: 100%;
+        height: 0.7rem;
+        background: url(../../assets/images/icon_bg@2x.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+    }
+    
+    .button {
+        background: #282d41;
+        padding: 0.15rem;
+    }
+    
+    .ict ul {
+        display: flex;
+        margin-bottom: 0.05rem;
+    }
+    
+    .ict ul li {
+        width: 33.33%;
+        color: #38D3C9;
+        text-align: center;
+        font-size: 0.15rem;
+        line-height: 0.3rem;
+    }
+    
+    .tibi {
+        margin-top: 0.1rem;
+    }
+    
+    .tibi ul {
+        display: flex;
+    }
+    
+    .tibi ul li {
+        width: 45%;
+        height: 0.7rem;
+        background: url(../../assets/images/icon_bg@3x.png);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        color: #38D3C9;
+        line-height: 0.7rem;
+        text-align: center;
+        font-size: 0.18rem;
+        font-weight: 600;
+    }
+    
+    .tibi ul li:nth-of-type(1) {
+        margin-right: 10%;
+    }
+    
+    .minxi {
+        margin-top: 0.26rem;
+    }
+    
+    .minxi img {
+        width: 2.4rem;
+        margin: 0 auto;
+    }
+    
+    .minxi p {
+        text-align: center;
+        color: #878B9A;
+        font-size: 0.15rem;
+    }
+    
+    .minxis {
+        background: #282d41;
+        width: 100%;
+        padding-bottom: 0.6rem;
+    }
+    
+    .minxis ul li {
+        display: flex;
+        text-align: center;
+        line-height: 0.4rem;
+        height: 0.4rem;
+        color: #fff;
+        font-size: 0.12rem;
+    }
+    
+    .minxis ul li:nth-child(odd) {
+        background: #373C4F;
+    }
+    
+    .minxis ul li p:nth-of-type(1) {
+        width: 40%;
+    }
+    
+    .minxis ul li p:nth-of-type(2) {
+        width: 30%;
+    }
+    
+    .minxis ul li p:nth-of-type(3) {
+        width: 30%;
+    }
+    
+    .minxis ul .weight {
+        font-size: 0.15rem;
+        color: #838599;
+    }
 </style>

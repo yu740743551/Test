@@ -5,9 +5,9 @@ import Layout from '@/views/layout/Index'
 //应用
 import Webapp from '@/views/webapp/Web'
 //首页
-
+//设置
 import Setting from '@/views/setting/Setting'
-
+import Extract from '@/views/extract/Extract'
 
 export default [
 
@@ -16,6 +16,13 @@ export default [
         name: 'scanPay',
         meta: { index: 2 },
         component: ScanPay
+
+    },
+    {
+        path: '/extract',
+        name: 'extract',
+        meta: { index: 2 },
+        component: Extract
 
     },
     {
@@ -49,6 +56,7 @@ export default [
         redirect: '/Home',
         component: Home,
     }
+
 
 
 ]
