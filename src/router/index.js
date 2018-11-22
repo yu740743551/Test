@@ -4,6 +4,7 @@ import ScanPay from '@/views/home/ScanPay'
 import Layout from '@/views/layout/Index'
 //应用
 import Webapp from '@/views/webapp/Web'
+import Upgrade from '@/views/webapp/Upgrade'
 //首页
 
 import Setting from '@/views/setting/Setting'
@@ -42,6 +43,12 @@ export default [
                 component: Setting
             },
         ]
+    },
+    {
+        path: '/Upgrade',
+        name: 'upgrade',
+        meta: { index: 2 },
+        component: Upgrade
     },
     {
         path: '*',

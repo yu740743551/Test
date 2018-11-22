@@ -15,20 +15,20 @@ export default {
       footList: [
         {
           name: "home",
-          txt: this.$t("doc.user_trade"),
-          icon: "&#xe63f;",
+          txt: "首页",
+          icon: "&#xe601;",
           path: "/home"
         },
         {
           name: "webapp",
-          txt: this.$t("doc.app"),
-          icon: "&#xe64f;",
+          txt: "科云商城",
+          icon: "&#xe610;",
           path: "/webapp"
         },
         {
           name: "setting",
-          txt: this.$t("doc.user_setting"),
-          icon: "&#xe750;",
+          txt: "我的",
+          icon: "&#xe602;",
           path: "/setting"
         }
       ]
@@ -41,15 +41,15 @@ export default {
 footer {
   position: fixed;
   width: 100%;
-  height: 0.49rem;
+  height: 0.54rem;
   left: 0;
   bottom: 0;
-  background: #000;
+  background: #373C4F;
   display: flex;
   z-index: 100;
   div {
     flex: 1;
-    height: 0.49rem;
+    height: 0.54rem;
     a {
       display: block;
       width: 100%;
