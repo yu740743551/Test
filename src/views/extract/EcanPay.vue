@@ -20,7 +20,7 @@
 
 <script>
 let scan = null;
-import { Toast } from "mint-ui";
+import { Toast } from "vant";
 export default {
   data() {
     return {
@@ -93,7 +93,7 @@ export default {
       }
       this.startScan();
     },
-     //开始扫描
+    //开始扫描
     startScan() {
       if (!window.plus) return;
       scan.start();

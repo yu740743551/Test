@@ -1,4 +1,4 @@
-import { Toast } from "mint-ui";
+import { Toast } from 'vant';
 
 export default class myUtils {
     /**
