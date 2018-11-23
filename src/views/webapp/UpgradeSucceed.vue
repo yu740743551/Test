@@ -6,7 +6,7 @@
         
         <div class="content">
             <img src="../../assets/images/icon_ok@2x.png" alt="">
-            <h3>恭喜您升级成功</h3>            
+            <h3>恭喜您！升级成功，等待审核...</h3>            
             <p class="btn btn_ture" @click="succeed">完成</p>
          
         </div>
@@ -34,7 +34,7 @@ export default {
 .head {
   height: 0.4rem;
   position: fixed;
-  top: 0.2rem;
+  top: 0.4rem;
   width: 100%;
   opacity: 1;
   z-index: 999;
@@ -52,7 +52,7 @@ export default {
   img {
     width: 0.64rem;
     height: 0.64rem;
-    margin: 1.17rem auto 0.2rem auto;
+    margin: 2rem auto 0.2rem auto;
   }
   h3 {
     color: #d2e6e6;

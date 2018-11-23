@@ -11,11 +11,11 @@
                         中级矿机
                     </li>
                     <li>
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
+                        <span @click="minus(1)">-</span>
+                        <input ref="1" type="number"  readonly v-model="num1">
+                        <span @click="add(1)">+</span>
                     </li>
-                    <li><span @click="upgrade()">升级</span></li>
+                    <li><span @click="upgrade(1)">升级</span></li>
                 </ul>
             </div>
             <div class="list">
@@ -24,11 +24,11 @@
                         高级矿机
                     </li>
                     <li>
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
+                        <span @click="minus(2)">-</span>
+                        <input ref="2" type="number"  readonly v-model="num2">
+                        <span @click="add(2)">+</span>
                     </li>
-                    <li><span @click="upgrade()">升级</span></li>
+                    <li><span @click="upgrade(2)">升级</span></li>
                 </ul>
             </div>
             <div class="list">
@@ -37,11 +37,11 @@
                         超级矿机
                     </li>
                     <li>
-                        <span>-</span>
-                        <span>1</span>
-                        <span>+</span>
+                        <span @click="minus(3)">-</span>
+                        <input ref="3" type="number"  readonly v-model="num3">
+                        <span @click="add(3)">+</span>
                     </li>
-                    <li><span @click="upgrade()">升级</span></li>
+                    <li><span @click="upgrade(3)">升级</span></li>
                 </ul>
             </div>
             
@@ -53,15 +53,57 @@
 export default {
   data() {
     return {
-     
+        num1:1,
+        num2:1,
+        num3:1,
     };
   },
 
   methods: {
-    upgrade() {
-      this.$router.push({
-        name: "upgrade"
-      });
+    upgrade(a) {
+        var val=this.$refs[a].value;
+        if(a==1){
+            this.$router.push({
+            name: "upgrade",
+            query:{
+                aaa:112,
+                bbb:val,
+                ccc:444
+            }
+            });   
+        }
+         if(a==2){
+            this.$router.push({
+            name: "upgrade",
+            query:{
+                aaa:112,
+                bbb:val,
+                ccc:444
+            }
+            });  
+        }
+         if(a==3){
+            this.$router.push({
+            name: "upgrade",
+            query:{
+                aaa:112,
+                bbb:val,
+                ccc:444
+            }
+            });  
+        }
+     
+    },
+    add(a){
+        var val=this.$refs[a].value;
+        val++;
+        this.$refs[a].value=val;
+       
+    },
+    minus(a){
+      var val=this.$refs[a].value;
+        val--;
+        this.$refs[a].value=val;
     },
   }
 };
@@ -110,6 +152,16 @@ export default {
                 height:0.3rem;
                 border: 1px solid #457F70;
                 border-radius:0.04rem;
+                    text-align: center;
+            }
+            input{
+                 display: inline-block;
+                width:0.4rem;
+                height:0.3rem;
+                border: 1px solid #457F70;
+                border-radius:0.04rem;
+                background: transparent;
+                    text-align: center;
             }
         }
         .list ul li:nth-child(3){width:20%;

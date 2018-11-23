@@ -53,11 +53,13 @@ export default {
   data() {
     return {
       qrcode_url: "../../assets/images/code.png",
-      newBuy: ""
+      newBuy: "",
     };
   },
   watch: {},
-  created() {},
+  created() {
+      this.id = this.$route.query.id;
+  },
   methods: {
     goback() {
       this.$router.go(-1);
