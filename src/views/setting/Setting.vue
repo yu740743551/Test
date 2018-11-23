@@ -13,28 +13,31 @@
 <script>
     import {
         Dialog
-    } from 'vant';
+    } from "vant";
     export default {
         data() {
-            return {
-
-            };
+            return {};
         },
         methods: {
             sign() {
                 Dialog.confirm({
-                    title: '提示',
-                    message: '确定退出登录吗'
-                }).then(() => {
-                    // on confirm
-                }).catch(() => {
-                    // on cancel
-                });
+                        title: "提示",
+                        message: "确定退出登录吗"
+                    })
+                    .then(() => {
+                        // on confirm
+                        this.$router.push({
+                            name: "login"
+                        });
+                    })
+                    .catch(() => {
+                        // on cancel
+                    });
             },
             register() {
                 this.$router.push({
-                    "name": "register"
-                })
+                    name: "register"
+                });
             }
         }
     };
@@ -51,7 +54,7 @@
     
     .minxi p {
         text-align: center;
-        color: #38D4CB;
+        color: #38d4cb;
         font-size: 0.15rem;
     }
     
@@ -66,13 +69,13 @@
     
     .minxis p {
         text-align: center;
-        color: #F56F6F;
+        color: #f56f6f;
         font-size: 0.15rem;
     }
 </style>
 <style>
     .van-dialog {
-        background: #373C4F;
+        background: #373c4f;
         color: #fff;
     }
     
@@ -81,7 +84,7 @@
     }
     
     .van-dialog .van-button {
-        background: #373C4F;
+        background: #373c4f;
         color: #fff;
     }
     
