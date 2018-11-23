@@ -18,7 +18,7 @@
                          <p>20000.00</p>
                     </div>
                     <div class="heji fl_box">
-                         <p>合计 <span>x10</span></p>
+                         <p>合计 <span>x {{num}}</span></p>
                          <p>200000.00</p>
                     </div>
                 </div>
@@ -54,11 +54,12 @@ export default {
     return {
       qrcode_url: "../../assets/images/code.png",
       newBuy: "",
+      num: "",
     };
   },
   watch: {},
   created() {
-      this.id = this.$route.query.id;
+      this.num = this.$route.query.num;
   },
   methods: {
     goback() {

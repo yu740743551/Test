@@ -67,7 +67,7 @@ export default {
             name: "upgrade",
             query:{
                 aaa:112,
-                bbb:val,
+                num:val,
                 ccc:444
             }
             });   
@@ -77,7 +77,7 @@ export default {
             name: "upgrade",
             query:{
                 aaa:112,
-                bbb:val,
+                num:val,
                 ccc:444
             }
             });  
@@ -87,7 +87,7 @@ export default {
             name: "upgrade",
             query:{
                 aaa:112,
-                bbb:val,
+                num:val,
                 ccc:444
             }
             });  
