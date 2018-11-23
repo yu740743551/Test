@@ -1,7 +1,6 @@
 <template>
-  <section class="section " >
+  <section class="section " :style="{ height: bodyHeight + 'px' }">
       
-    <div class="register register_bg">
         <div class="hea">
             <span>欢迎登录</span>
             <i></i>
@@ -31,8 +30,6 @@
           
         </form>
       </div>
-      
-    </div>
     
   </section>
 </template>
@@ -55,6 +52,7 @@ export default {
       bodyHeight: "",      
     };
   },
+  
   created() {
      
   },
@@ -66,64 +64,71 @@ export default {
         this.$router.push({ name: "forgetpassword" });
     },
     sumbit() {
-      if (this.nickname == "") {
-        Toast({
-          message: "昵称不能为空"
-        });
-        return;
-      }
-      if (this.password == "") {
-        Toast({
-          message: "密码不能为空"
-        });
-        return;
-      }
-      Indicator.open({
-        text: "加载中...",
-        spinnerType: "fading-circle"
-      });
-      this.$axios
-        .post(
-          "/login/doLogin",
-          "&nickname=" + this.nickname + "&pwd=" + this.password
-        )
-        .then(r => {
-          Indicator.close();
-          if (r.data.error != 0) {
-            Toast({
-              message: r.data.msg
-            });
-            return;
-          }
-          Toast({
-            message: r.data.msg
-          });
-          localStorage.setItem("token", r.data.data);
-          this.$router.push({
+
+        this.$router.push({
             name: "home"
           });
-        }).catch(err => {
-            Indicator.close();
-            Toast("网络连接失败");
-        });
+    //   if (this.nickname == "") {
+    //     Toast({
+    //       message: "昵称不能为空"
+    //     });
+    //     return;
+    //   }
+    //   if (this.password == "") {
+    //     Toast({
+    //       message: "密码不能为空"
+    //     });
+    //     return;
+    //   }
+    //   Indicator.open({
+    //     text: "加载中...",
+    //     spinnerType: "fading-circle"
+    //   });
+    //   this.$axios
+    //     .post(
+    //       "/login/doLogin",
+    //       "&nickname=" + this.nickname + "&pwd=" + this.password
+    //     )
+    //     .then(r => {
+    //       Indicator.close();
+    //       if (r.data.error != 0) {
+    //         Toast({
+    //           message: r.data.msg
+    //         });
+    //         return;
+    //       }
+    //       Toast({
+    //         message: r.data.msg
+    //       });
+    //       localStorage.setItem("token", r.data.data);
+    //       this.$router.push({
+    //         name: "home"
+    //       });
+    //     }).catch(err => {
+    //         Indicator.close();
+    //         Toast("网络连接失败");
+    //     });
      
     }
 
    
   },
   mounted() {
-    this.bodyHeight = document.documentElement.clientHeight;
+      this.bodyHeight = document.documentElement.clientHeight;
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "../../assets/css/mixin";
-
-.register_bg{
+.section{
+    overflow: scroll;
+    position: fixed;
+    bottom:0;
+    left: 0;
     background:url(../../assets/images/login_bg.png) no-repeat center bottom;
     background-size:100% 3.54rem;
-   
+
     
     .hea span{
         display: inline-block;
@@ -143,15 +148,7 @@ export default {
     }
 }
 
-.register {
-  min-height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translate(-50%, 0);
-}
+
 
 .reg-title {
   width: 1.22rem;

@@ -43,6 +43,7 @@ export default {
   position: fixed;
   top: 0;
   width: 100%;
+   background: #282D41;
   padding-top: 0.3rem;
   opacity: 1;
   z-index: 99;

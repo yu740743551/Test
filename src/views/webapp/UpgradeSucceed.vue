@@ -6,7 +6,7 @@
         
         <div class="content">
             <img src="../../assets/images/icon_ok@2x.png" alt="">
-            <h3>恭喜您提币成功</h3>            
+            <h3>恭喜您升级成功</h3>            
             <p class="btn btn_ture" @click="succeed">完成</p>
          
         </div>

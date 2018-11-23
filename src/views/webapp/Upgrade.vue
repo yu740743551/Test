@@ -99,7 +99,7 @@ export default {
 
 .section {
   height: 100vh;
-  overflow: hidden;
+//   overflow: hidden;
 }
 
 .head {
@@ -108,6 +108,7 @@ export default {
   top: 0;
   width: 100%;
   padding-top: 0.3rem;
+  background: #282D41;
   opacity: 1;
   z-index: 99;
 }
@@ -137,7 +138,7 @@ export default {
 
 .content {
   width: 3rem;
-  height: 100%;
+//   height: 100%;
   margin: 0.6rem auto 0 auto;
   .code {
     width: 3rem;
