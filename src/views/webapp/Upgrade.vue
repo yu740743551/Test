@@ -70,6 +70,7 @@ export default {
       if (val.length === 6) {
         console.log(val);
         this.$refs["sendVal"].close();
+        this.$router.push({ name: "upgradeSucceed" });
       }
     },
     fileChange() {

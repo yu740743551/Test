@@ -5,11 +5,16 @@ import Layout from '@/views/layout/Index'
 //应用
 import Webapp from '@/views/webapp/Web'
 import Upgrade from '@/views/webapp/Upgrade'
+import UpgradeSucceed from '@/views/webapp/UpgradeSucceed'
 //首页
 //设置
 import Setting from '@/views/setting/Setting'
 import Extract from '@/views/extract/Extract'
 import TransferSucceed from '@/views/extract/TransferSucceed'
+
+//登录
+import ForgetPassword from '@/views/login/ForgetPassword'
+import Login from '@/views/login/Login'
 export default [
 
     {
@@ -63,6 +68,24 @@ export default [
         name: 'upgrade',
         meta: { index: 2 },
         component: Upgrade
+    },
+    {
+        path: '/UpgradeSucceed',
+        name: 'upgradeSucceed',
+        meta: { index: 3 },
+        component: UpgradeSucceed
+    },
+    {
+        path: '/Login',
+        name: 'login',
+        meta: { index: 1 },
+        component: Login
+    },
+    {
+        path: '/ForgetPassword',
+        name: 'forgetpassword',
+        meta: { index: 2 },
+        component: ForgetPassword
     },
     {
         path: '*',
