@@ -1,7 +1,7 @@
 <template>
     <div class="section">
         <div class="head">
-          <span class="title">提币成功</span>
+          <span class="title">注册</span>
          </div>
         
         <div class="content">

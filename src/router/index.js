@@ -10,6 +10,7 @@ import UpgradeSucceed from '@/views/webapp/UpgradeSucceed'
 //设置
 import Setting from '@/views/setting/Setting'
 import Register from '@/views/setting/Register'
+import RegisterSuccess from '@/views/setting/RegisterSuccess'
 import Extract from '@/views/extract/Extract'
 import TransferSucceed from '@/views/extract/TransferSucceed'
 
@@ -44,6 +45,13 @@ export default [
         name: 'register',
         meta: { index: 6 },
         component: Register
+
+    },
+    {
+        path: '/registerSuccess',
+        name: 'registerSuccess',
+        meta: { index: 7 },
+        component: RegisterSuccess
 
     },
     {

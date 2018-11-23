@@ -21,7 +21,7 @@
                 <span>邮箱&nbsp;</span>
                 <input type="text" @click="myUtils.iosActive($event)" placeholder="请输入邮箱">
             </div>
-            <div class="submit">注册</div>
+            <div class="submit" @click="submit">注册</div>
         </div>
     </div>
 </template>
@@ -37,6 +37,11 @@
         methods: {
             goback() {
                 this.$router.go(-1);
+            },
+            submit() {
+                this.$router.push({
+                    name: "registerSuccess"
+                })
             }
         }
     };
