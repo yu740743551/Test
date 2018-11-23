@@ -92,7 +92,7 @@ export default [
     {
         path: '/ForgetPassword',
         name: 'forgetpassword',
-        meta: { index: 2 },
+        meta: { index: 6 },
         component: ForgetPassword
     },
     {

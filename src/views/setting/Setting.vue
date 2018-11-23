@@ -4,6 +4,10 @@
             <p>注册</p>
             <img src="../../assets/images/btn_bg@2x.png" alt="">
         </div>
+        <div class="minxis" @click="login">
+            <p style="color:#38D4CB">密码修改</p>
+            <img src="../../assets/images/btn_bg@4x.png" alt="">
+        </div>
         <div class="minxis" @click="sign">
             <p>退出登录</p>
             <img src="../../assets/images/btn_bg@3x.png" alt="">
@@ -38,6 +42,11 @@
                 this.$router.push({
                     name: "register"
                 });
+            },
+            login() {
+                this.$router.push({
+                    name: 'forgetpassword'
+                })
             }
         }
     };
