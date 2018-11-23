@@ -48,7 +48,7 @@
    
 </template>
 <script>
-import { Toast } from "mint-ui";
+import { Toast } from "vant";
 import PayKeyboard from "@/components/PayKeyboard";
 // import  '@/assets/js/inputs.js'
 export default {
@@ -165,12 +165,12 @@ export default {
         //         this.$refs.sendVal.$children[0].remov();
         //         return;
         //       } else if (r.data.error == 0) {
-                this.$refs["sendVal"].close();
-                this.$refs.sendVal.$children[0].remov();
-                // Toast({
-                //   message: r.data.msg
-                // });
-                this.$router.push({ name: "transferSucceed" });
+        this.$refs["sendVal"].close();
+        this.$refs.sendVal.$children[0].remov();
+        // Toast({
+        //   message: r.data.msg
+        // });
+        this.$router.push({ name: "transferSucceed" });
         //       } else {
         //         this.$refs["sendVal"].close();
         //         this.$refs.sendVal.$children[0].remov();
