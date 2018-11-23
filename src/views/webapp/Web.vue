@@ -96,12 +96,21 @@ export default {
     },
     add(a){
         var val=this.$refs[a].value;
+        if(val>=10){
+          val=10; 
+          this.$refs[a].value=val;
+          return;
+       }
         val++;
         this.$refs[a].value=val;
-       
     },
     minus(a){
       var val=this.$refs[a].value;
+       if(val<=0){
+          val=0; 
+          this.$refs[a].value=val;
+          return;
+       }
         val--;
         this.$refs[a].value=val;
     },
