@@ -9,7 +9,7 @@ import Upgrade from '@/views/webapp/Upgrade'
 //设置
 import Setting from '@/views/setting/Setting'
 import Extract from '@/views/extract/Extract'
-
+import TransferSucceed from '@/views/extract/TransferSucceed'
 export default [
 
     {
@@ -24,6 +24,13 @@ export default [
         name: 'extract',
         meta: { index: 4 },
         component: Extract
+
+    },
+    {
+        path: '/transferSucceed',
+        name: 'transferSucceed',
+        meta: { index: 5 },
+        component: TransferSucceed
 
     },
     {
