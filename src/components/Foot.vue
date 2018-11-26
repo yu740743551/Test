@@ -44,7 +44,7 @@ footer {
   height: 0.54rem;
   left: 0;
   bottom: 0;
-  background: #373C4F;
+  background: #373c4f;
   display: flex;
   z-index: 100;
   div {
@@ -57,26 +57,26 @@ footer {
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
-      padding: 6px 0;
       text-align: center;
       font-family: "微软雅黑";
       color: #fff;
+      padding: 0.06rem 0;
       i {
         width: 100%;
-        height: 30px;
-        line-height: 30px;
+        height: 0.3rem;
+        line-height: 0.3rem;
         font-size: 0.21rem !important;
       }
       span {
         width: 100%;
-        height: 20px;
-        line-height: 12px;
+        height: 0.2rem;
+        line-height: 0.12rem;
         font-size: 0.12rem;
       }
     }
     .router-link-active {
-    //   color:#fff;
-      color:#21FFF6;
+      //   color:#fff;
+      color: #21fff6;
       border-color: $mtBlue;
     }
     .ft-active-1 {
