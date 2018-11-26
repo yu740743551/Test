@@ -324,7 +324,7 @@ export default {
   width: 3rem;
   height: 0.4rem;
   color: #fff;
-  font-size: 0.12rem;
+  font-size: 0.15rem;
   line-height: 0.4rem;
   text-align: center;
   margin: 0 auto;

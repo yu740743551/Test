@@ -31,7 +31,7 @@
             <div class="tibi">
                 <ul>
                     <li @click="extract">提币</li>
-                    <li>量化交易</li>
+                    <li @click="transfer">转账</li>
                 </ul>
             </div>
             <div class="minxi">
@@ -105,6 +105,11 @@ export default {
     extract() {
       this.$router.push({
         name: "extract"
+      });
+    },
+    transfer() {
+      this.$router.push({
+        name: "transfer"
       });
     },
     refresh() {

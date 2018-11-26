@@ -171,9 +171,9 @@ export default {
     }
     input {
       background: transparent;
-      height: 0.2rem;
+      height: 0.18rem;
       color: #d2e6e6;
-      font-size: 0.2rem;
+      font-size: 0.18rem;
       border-radius: 0;
       width: 100%;
       height:100%;

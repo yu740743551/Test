@@ -12,7 +12,10 @@ import Setting from '@/views/setting/Setting'
 import Register from '@/views/setting/Register'
 import RegisterSuccess from '@/views/setting/RegisterSuccess'
 import Extract from '@/views/extract/Extract'
-import TransferSucceed from '@/views/extract/TransferSucceed'
+import ExtractSucceed from '@/views/extract/ExtractSucceed'
+//转账
+import Transfer from '@/views/transfer/Transfer'
+import TransferSucceed from '@/views/transfer/TransferSucceed'
 
 //登录
 import ForgetPassword from '@/views/login/ForgetPassword'
@@ -34,10 +37,10 @@ export default [
 
     },
     {
-        path: '/transferSucceed',
-        name: 'transferSucceed',
+        path: '/extractSucceed',
+        name: 'extractSucceed',
         meta: { index: 5 },
-        component: TransferSucceed
+        component: ExtractSucceed
 
     },
     {
@@ -102,6 +105,18 @@ export default [
         name: 'forgetpassword',
         meta: { index: 6 },
         component: ForgetPassword
+    },
+    {
+        path: '/Transfer',
+        name: 'transfer',
+        meta: { index: 6 },
+        component: Transfer
+    },
+    {
+        path: '/TransferSucceed',
+        name: 'transferSucceed',
+        meta: { index: 7 },
+        component: TransferSucceed
     },
     {
         path: '*',
