@@ -84,11 +84,7 @@
 </style>
 <style>
     .van-dialog {
-        background: #373c4f;
-        color: #fff;
-    }
-    
-    .van-dialog__message--has-title {
+        background: #373c4f!important;
         color: #fff;
     }
     
@@ -99,5 +95,20 @@
     
     .van-dialog__message--has-title {
         text-align: center;
+        color: #fff!important;
+    }
+    
+    .van-dialog__header {
+        color: #fff;
+        background: #373c4f!important;
+    }
+    
+    .van-button::before {
+        background: #373c4f!important;
+        border-color: #ccc!important;
+    }
+    
+    .van-dialog__content {
+        background: #373c4f!important;
     }
 </style>

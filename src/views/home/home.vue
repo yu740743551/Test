@@ -1,6 +1,5 @@
 <template>
 
-    <!-- <van-pull-refresh v-model="isLoading" @refresh="onRefresh"> -->
       <scroller :on-refresh = "refresh" ref="myscroller"> 
     <div class="home">
         <div class="gif">
@@ -92,7 +91,6 @@
         </div>
     </div>
      </scroller>
-    <!-- </van-pull-refresh> -->
 </template>
 <script>
 export default {
@@ -104,13 +102,6 @@ export default {
   },
 
   methods: {
-    onRefresh() {
-      setTimeout(() => {
-        // this.$toast("刷新成功");
-        this.isLoading = false;
-        this.count++;
-      }, 500);
-    },
     extract() {
       this.$router.push({
         name: "extract"
@@ -269,7 +260,7 @@ export default {
 .minxis {
   background: #282d41;
   width: 100%;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.5rem;
 }
 
 .minxis ul li {
