@@ -9,10 +9,13 @@ import UpgradeSucceed from '@/views/webapp/UpgradeSucceed'
 //首页
 //设置
 import Setting from '@/views/setting/Setting'
+import Success from '@/views/setting/Success'
 import Register from '@/views/setting/Register'
 import RegisterSuccess from '@/views/setting/RegisterSuccess'
 import Extract from '@/views/extract/Extract'
 import ExtractSucceed from '@/views/extract/ExtractSucceed'
+import Password from '@/views/setting/Password'
+import Paypassword from '@/views/setting/Paypassword'
 //转账
 import Transfer from '@/views/transfer/Transfer'
 import TransferSucceed from '@/views/transfer/TransferSucceed'
@@ -20,7 +23,15 @@ import TransferSucceed from '@/views/transfer/TransferSucceed'
 //登录
 import ForgetPassword from '@/views/login/ForgetPassword'
 import Login from '@/views/login/Login'
+
 export default [
+    {
+        path: '/success',
+        name: 'success',
+        meta: { index: 20 },
+        component: Success
+
+    },
 
     {
         path: '/scanPay',
@@ -55,6 +66,20 @@ export default [
         name: 'registerSuccess',
         meta: { index: 7 },
         component: RegisterSuccess
+
+    },
+    {
+        path: '/password',
+        name: 'password',
+        meta: { index: 8 },
+        component: Password
+
+    },
+    {
+        path: '/paypassword',
+        name: 'paypassword',
+        meta: { index: 9},
+        component: Paypassword
 
     },
     {
@@ -103,7 +128,7 @@ export default [
     {
         path: '/ForgetPassword',
         name: 'forgetpassword',
-        meta: { index: 6 },
+        meta: { index: 15 },
         component: ForgetPassword
     },
     {

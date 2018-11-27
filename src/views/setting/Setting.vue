@@ -5,7 +5,11 @@
             <img src="../../assets/images/btn_bg@2x.png" alt="">
         </div>
         <div class="minxis" @click="login">
-            <p style="color:#38D4CB">密码修改</p>
+            <p style="color:#38D4CB">修改登录密码</p>
+            <img src="../../assets/images/btn_bg@4x.png" alt="">
+        </div>
+        <div class="minxis" @click="pay">
+            <p style="color:#38D4CB">修改支付密码</p>
             <img src="../../assets/images/btn_bg@4x.png" alt="">
         </div>
         <div class="minxis" @click="sign">
@@ -15,6 +19,7 @@
     </div>
 </template>
 <script>
+import { Toast } from 'vant';
     import {
         Dialog
     } from "vant";
@@ -22,21 +27,30 @@
         data() {
             return {};
         },
-        methods: {
+        methods: {      
             sign() {
                 Dialog.confirm({
                         title: "提示",
                         message: "确定退出登录吗"
                     })
-                    .then(() => {
+                    .then(action => {
                         // on confirm
-                        this.$router.push({
+                         this.$axios
+                        .get(
+                            "/login/loginOut",
+                            "token=" + window.localStorage.getItem("token")
+                        )
+                        .then(r => {
+                            localStorage.removeItem("token");
+                            this.$router.push({
                             name: "login"
+                            });
+                        })
+                        .catch(err => {
+                            Toast("网络连接失败");
                         });
+                        
                     })
-                    .catch(() => {
-                        // on cancel
-                    });
             },
             register() {
                 this.$router.push({
@@ -45,7 +59,12 @@
             },
             login() {
                 this.$router.push({
-                    name: 'forgetpassword'
+                    name: 'password'
+                })
+            },
+            pay() {
+                this.$router.push({
+                    name: 'paypassword'
                 })
             }
         }

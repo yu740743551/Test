@@ -58,9 +58,7 @@
 </template>
 <script>
     import Clipboard from 'clipboard';
-    import {
-        Toast
-    } from "mint-ui";
+    import { Toast } from 'vant';
     import PayKeyboard from "@/components/PayKeyboard";
     // import  '@/assets/js/inputs.js'
     export default {
@@ -92,6 +90,7 @@
         methods: {
             all() {
                 this.number = this.enable;
+                
             },
             goback() {
                 this.$router.push({
@@ -99,16 +98,12 @@
                 });
             },
             copy() {
-                console.log(123)
                 let clipboard = new Clipboard(".copy");
                 clipboard.on("success", function() {
-                    Toast({
-                        message: "复制成功",
-                        position: "bottom"
-                    });
+                   Toast('复制成功');
                 });
                 clipboard.on("error", function() {
-                    console.log("复制失败");
+                    Toast('复制失败');
                 });
             },
             tosucceed() {
@@ -140,8 +135,15 @@
                 //     return;
                 // }
                 // this.newBuy = "请输入您的支付密码";
-                // this.$refs["sendVal"].show();
-               this.$router.push({ name: "transferSucceed" });
+                this.$refs["sendVal"].show();
+              this.$router.push({
+                            name: "success",
+                            query:{
+                                title:'转出',
+                                content:'恭喜您！转出成功，等待审核...',
+                                name:'home',
+                            }
+                    })
             },
             scan() {
                 this.$router.push({
@@ -212,9 +214,14 @@
                 //             Toast("网络连接失败");
                 //         });
 
-                 this.$router.push({
-                                        name: "transferSucceed"
-                                    });
+                this.$router.push({
+                            name: "success",
+                            query:{
+                                title:'转出',
+                                content:'恭喜您！转出成功，等待审核...',
+                                name:'home',
+                            }
+                    })
                 }
 
                 
@@ -260,13 +267,14 @@
     
     .head i {
         color: #fff;
-        line-height: 0.4rem;
-        font-size: 0.18rem;
+        line-height: 0.5rem;
+        font-size: 0.3rem;
         text-align: left;
         padding: 0.1rem;
     }
     
     .head i:last-child {
+        font-size: 0.25rem;
         float: right;
         line-height: normal;
     }

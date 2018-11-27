@@ -170,7 +170,14 @@ export default {
         // Toast({
         //   message: r.data.msg
         // });
-        this.$router.push({ name: "transferSucceed" });
+        this.$router.push({
+            name: "success",
+            query:{
+                title:'提币',
+                content:'恭喜您！提币成功，等待审核...',
+                name:'home',
+            }
+          });
         //       } else {
         //         this.$refs["sendVal"].close();
         //         this.$refs.sendVal.$children[0].remov();

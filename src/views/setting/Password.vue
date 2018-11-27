@@ -1,0 +1,173 @@
+<template>
+    <div>
+        <div class="head">
+            <i class="iconfont icon-quxiao" @click="goback"></i>
+            <span class="title">修改登录密码</span>
+        </div>
+       <div class="center">              
+       
+        <input type="password" @click="myUtils.iosActive($event)" ref='1' placeholder="输入旧密码" v-model="old_pwd">
+        <input type="password" @click="myUtils.iosActive($event)" ref='2'  placeholder="输入新密码" v-model="new_pwd">
+        <input type="password" @click="myUtils.iosActive($event)" ref='3'  placeholder="重复新密码" v-model="confirm_pwd">
+        <div class="btn" @click="sumbit">确认修改</div>
+       </div>
+    </div>
+</template>
+<script>
+import { Toast } from 'vant';
+export default {
+  components: {
+    Toast
+  },
+  data() {
+    return {
+      old_pwd: "",
+      new_pwd: "",
+      confirm_pwd: "",
+    };
+  },
+  methods: {
+    sumbit() {
+      if (this.old_pwd == "") {
+        Toast("旧密码不能为空");
+        return;
+      }
+
+      if (this.old_pwd.length < 6) {
+        Toast("旧密码长度不能小于6位");
+        return;
+      }
+      if (this.old_pwd.length > 18) {
+        Toast("旧密码长度不能大于18位");
+        return;
+      }
+      if (this.new_pwd == "") {
+        Toast("新密码不能为空");
+        return;
+      }
+
+      if (this.new_pwd.length < 6) {
+        Toast("新密码长度不能小于6位");
+        return;
+      }
+      if (this.new_pwd.length > 18) {
+        Toast("新密码长度不能大于18位");
+        return;
+      }
+      if (this.new_pwd == this.old_pwd) {
+        Toast("新密码和旧密码不能一样");
+        return;
+      }
+      if (this.new_pwd != this.confirm_pwd) {
+        Toast("2次输入的密码不一致");
+        return;
+      }
+      this.$axios
+        .post(
+          "/member/resetLoginPwd?token=" +
+            window.localStorage.getItem("token"),
+          "old_pwd=" + this.old_pwd + 
+          "&new_pwd=" + this.new_pwd +
+          "&confirm_pwd=" + this.confirm_pwd
+        )
+        .then(r => {
+          console.log(r);
+            if (r.data.error != 0) {
+            Toast({
+            message: r.data.msg
+            });
+            return;
+            }
+          Toast(r.data.msg);
+          this.$router.push({
+            name: "success",
+            query:{
+                title:'修改登录密码',
+                content:'恭喜您！修改登录密码成功',
+                name:'setting',
+            }
+          });
+        }).catch(err => {            
+            Toast("网络连接失败");
+        });
+    },
+    goback() {
+      this.$router.go(-1);
+    },
+    
+  }
+};
+</script>
+<style lang="scss" scoped>
+.head {
+  height: 0.4rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+   background: #282D41;
+  padding-top: 0.3rem;
+  opacity: 1;
+  z-index: 99;
+}
+
+.head .title {
+  color: #fff;
+  line-height: 0.4rem;
+  font-size: 0.18rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.head i {
+  color: #fff;
+  line-height: 0.45rem;
+  font-size: 0.3rem;
+  text-align: left;
+  padding: 0.1rem;
+}
+.center {
+  padding: 0.16rem 0.28rem;
+  box-sizing: border-box;
+  width: 3.45rem;
+  margin: 1rem auto;
+  
+  input {
+    background: transparent;
+    color: #fff;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    width: 100%;
+    border-bottom: 1px solid #21fff6;
+    margin-top: 0.1rem;
+    border-radius: 0;
+    font-size:0.15rem;
+  }
+  
+}
+
+.pass {
+    display: inline-block;
+    float:right;
+    width:0.77rem;
+    font-size:0.11rem;
+    color:rgba(232,97,97,1);
+  margin-top: 0.1rem;
+  text-align: center
+}
+  .btn {
+  width: 100%;
+  height: 0.49rem;
+  color: #fff;
+  font-size: 0.17rem;
+  line-height: 0.42rem;
+  text-align: center;
+  margin: 0.68rem auto 0.08rem auto;
+  background: #e86161;
+  border: 0.04rem solid #c75757;
+  box-sizing: border-box;
+}
+input::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #d2e6e6;
+}
+</style>

@@ -106,8 +106,8 @@ export default {
     },
     minus(a){
       var val=this.$refs[a].value;
-       if(val<=0){
-          val=0; 
+       if(val<=1){
+          val=1; 
           this.$refs[a].value=val;
           return;
        }

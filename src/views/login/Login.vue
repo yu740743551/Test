@@ -11,12 +11,12 @@
         <form action="">
           <div class="con_row">
             <div class="con_col tel">
-              <input type="text"  placeholder="用户名" @click="myUtils.iosActive($event)" ref='4' v-model="nickname" >
+              <input type="text"  placeholder="用户名" @click="myUtils.iosActive($event)" ref='4' v-model="name"  >
             </div>
           </div>          
           <div class="con_row">
             <div class="con_col login_pwd">
-              <input type="password" @click="myUtils.iosActive($event)" ref='3'  placeholder="请输入密码" v-model="password">
+              <input type="password" @click="myUtils.iosActive($event)" ref='3'  placeholder="请输入密码" v-model="password" >
              
             </div>
           </div>
@@ -36,7 +36,7 @@
 
 <script>
 import LangSelect from "@/components/LangSelect";
-import { Toast } from "mint-ui";
+import { Toast } from 'vant';
 import SIdentify from "@/components/VerificationCode";
 import { Indicator } from "mint-ui";
 export default {
@@ -44,9 +44,7 @@ export default {
   data() {
     return {
       isshow: true,
-      vas: "获取验证码",
-      mobile: "", //手机号
-      nickname: "", //昵称
+      name: "", //用户名
       password: "",
       codes: "",
       bodyHeight: "",      
@@ -63,51 +61,43 @@ export default {
     forgetpassword() {
         this.$router.push({ name: "forgetpassword" });
     },
-    sumbit() {
-
-        this.$router.push({
+    sumbit() {    
+      if (this.name == "") {
+        Toast({
+          message: "用户名不能为空"
+        });
+        return;
+      }
+      if (this.password == "") {
+        Toast({
+          message: "密码不能为空"
+        });
+        return;
+      }
+      
+      this.$axios
+        .post(
+          "/login/doLogin",
+          "mobile=" + this.name + "&login_pwd=" + this.password
+        )
+        .then(r => {
+            console.log(r)
+          if (r.data.error != 0) {
+            Toast({
+              message: r.data.msg
+            });
+            return;
+          }
+          Toast({
+            message: r.data.msg
+          });
+          localStorage.setItem("token", r.data.data);
+          this.$router.push({
             name: "home"
           });
-    //   if (this.nickname == "") {
-    //     Toast({
-    //       message: "昵称不能为空"
-    //     });
-    //     return;
-    //   }
-    //   if (this.password == "") {
-    //     Toast({
-    //       message: "密码不能为空"
-    //     });
-    //     return;
-    //   }
-    //   Indicator.open({
-    //     text: "加载中...",
-    //     spinnerType: "fading-circle"
-    //   });
-    //   this.$axios
-    //     .post(
-    //       "/login/doLogin",
-    //       "&nickname=" + this.nickname + "&pwd=" + this.password
-    //     )
-    //     .then(r => {
-    //       Indicator.close();
-    //       if (r.data.error != 0) {
-    //         Toast({
-    //           message: r.data.msg
-    //         });
-    //         return;
-    //       }
-    //       Toast({
-    //         message: r.data.msg
-    //       });
-    //       localStorage.setItem("token", r.data.data);
-    //       this.$router.push({
-    //         name: "home"
-    //       });
-    //     }).catch(err => {
-    //         Indicator.close();
-    //         Toast("网络连接失败");
-    //     });
+        }).catch(err => {
+            Toast("网络连接失败");
+        });
      
     }
 

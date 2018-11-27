@@ -1,7 +1,7 @@
 <template>
     <div class="section"> 
         <div class="head">
-            <i class="iconfont iconfonts icon-quxiao" @click="goback"></i>
+            <i class="iconfont icon-quxiao" @click="goback"></i>
             <span class="title">联系客服</span>
         </div>       
         <div class="centent">
