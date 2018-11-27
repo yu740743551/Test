@@ -73,7 +73,14 @@ export default {
       if (val.length === 6) {
         console.log(val);
         this.$refs["sendVal"].close();
-        this.$router.push({ name: "upgradeSucceed" });
+        this.$router.push({
+            name: "success",
+            query:{
+                title:'升级成功',
+                content:'恭喜您！升级成功，等待审核...',
+                name:'webapp',
+            }
+        });
       }
     },
     fileChange() {

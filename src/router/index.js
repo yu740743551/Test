@@ -5,20 +5,16 @@ import Layout from '@/views/layout/Index'
 //应用
 import Webapp from '@/views/webapp/Web'
 import Upgrade from '@/views/webapp/Upgrade'
-import UpgradeSucceed from '@/views/webapp/UpgradeSucceed'
 //首页
 //设置
 import Setting from '@/views/setting/Setting'
 import Success from '@/views/setting/Success'
 import Register from '@/views/setting/Register'
-import RegisterSuccess from '@/views/setting/RegisterSuccess'
 import Extract from '@/views/extract/Extract'
-import ExtractSucceed from '@/views/extract/ExtractSucceed'
 import Password from '@/views/setting/Password'
 import Paypassword from '@/views/setting/Paypassword'
 //转账
 import Transfer from '@/views/transfer/Transfer'
-import TransferSucceed from '@/views/transfer/TransferSucceed'
 
 //登录
 import ForgetPassword from '@/views/login/ForgetPassword'
@@ -47,13 +43,7 @@ export default [
         component: Extract
 
     },
-    {
-        path: '/extractSucceed',
-        name: 'extractSucceed',
-        meta: { index: 5 },
-        component: ExtractSucceed
-
-    },
+  
     {
         path: '/register',
         name: 'register',
@@ -61,13 +51,7 @@ export default [
         component: Register
 
     },
-    {
-        path: '/registerSuccess',
-        name: 'registerSuccess',
-        meta: { index: 7 },
-        component: RegisterSuccess
-
-    },
+    
     {
         path: '/password',
         name: 'password',
@@ -113,12 +97,7 @@ export default [
         meta: { index: 2 },
         component: Upgrade
     },
-    {
-        path: '/UpgradeSucceed',
-        name: 'upgradeSucceed',
-        meta: { index: 3 },
-        component: UpgradeSucceed
-    },
+   
     {
         path: '/Login',
         name: 'login',
@@ -137,12 +116,7 @@ export default [
         meta: { index: 6 },
         component: Transfer
     },
-    {
-        path: '/TransferSucceed',
-        name: 'transferSucceed',
-        meta: { index: 7 },
-        component: TransferSucceed
-    },
+    
     {
         path: '*',
         meta: { index: 0 },
