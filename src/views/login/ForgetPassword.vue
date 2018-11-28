@@ -14,7 +14,7 @@
     </div>
 </template>
 <script>
-import { Toast } from "mint-ui";
+import { Toast } from "vant";
 // import  '@/assets/js/inputs.js'
 export default {
   data() {

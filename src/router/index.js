@@ -16,6 +16,7 @@ import Paypassword from '@/views/setting/Paypassword'
 //转账
 import Transfer from '@/views/transfer/Transfer'
 import Bill from '@/views/transfer/Bill'
+import ScanPay from '@/views/transfer/ScanPay'
 
 //登录
 import ForgetPassword from '@/views/login/ForgetPassword'
@@ -31,9 +32,9 @@ export default [
     },
 
     {
-        path: '/scanPay',
+        path: '/ScanPay',
         name: 'scanPay',
-        meta: { index: 2 },
+        meta: { index: 8 },
         component: ScanPay
 
     },
