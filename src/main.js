@@ -30,7 +30,7 @@ Vue.prototype.$axios = axios;
 // axios.defaults.baseURL = 'http://apiwb.hkex.link'
 axios.defaults.baseURL = 'http://api.kj.com/'
 
-    /* eslint-disable no-new */
+/* eslint-disable no-new */
 VueRouter.prototype.goBack = function() {
     this.isBack = true
     window.history.go(-1)
