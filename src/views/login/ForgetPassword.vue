@@ -1,7 +1,7 @@
 <template>
     <div class="section"> 
         <div class="head">
-            <i class="iconfont icon-quxiao" @click="goback"></i>
+            <i class="iconfont icon-fanhui" @click="goback"></i>
             <span class="title">联系客服</span>
         </div>       
         <div class="centent">
@@ -51,17 +51,17 @@ export default {
 }
 
 .head .title {
-  color: #fff;
+  color: #38D4CB;
   line-height: 0.4rem;
-  font-size: 0.18rem;
+  font-size: 0.2rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
 }
 .head i {
-  color: #fff;
+  color: #38D4CB;
   line-height: 0.45rem;
-  font-size: 0.3rem;
+  font-size: 0.22rem;
   text-align: left;
   padding: 0.1rem;
 }

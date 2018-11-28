@@ -2,29 +2,22 @@
     <div class="section">
         <div class="sections">
             <div class="head">
-            <i class="iconfont icon-quxiao" @click="goback"></i>
+            <i class="iconfont icon-fanhui" @click="goback"></i>
             <span class="title">转出</span>
-            <i class="iconfont  icon-saoyisao1" @click="scan"></i>
+            <i  @click="bill">转账记录</i>
             </div>
             
             <div class="content">
                 <div class="code">
                     <h3>我的二维码</h3>
                     <img  alt="" :src="qrcode_url">
-                    <h3>扫一扫添加&nbsp;对方账户</h3>
+                    <h3>扫一扫添加&nbsp;对方账户 <i class="iconfont  icon-saoyisao1" @click="scan"></i></h3>
+                    
                 </div>
-                <form action="">
+                <form action="">                    
                     <div class="con_row">
                         <div class="con_col tel">
-                            <h3>钱包地址</h3>
-                            <input type="text" ref="cop" class="wallet_address" id="address" v-model="wallet">
-                            <input type="text"  class="wallet_address top" disabled>
-                            <span class="copy" @click="copy" data-clipboard-target="#address">复制</span>
-                        </div>
-                    </div>
-                    <div class="con_row">
-                        <div class="con_col tel">
-                        <h3>对方账户</h3>
+                        <h3>对方账户地址</h3>
                         <input type="text" placeholder="扫一扫添加对方账户" v-model="mobile" @click="myUtils.iosActive($event)" ref='1' id='fok'>
                         </div>
                     </div>
@@ -35,15 +28,10 @@
                         </div>
                     </div>
                     <p class="tip">
-                        <span>可用&nbsp;{{enable}} &nbsp;EOS</span>
+                        <span>可用&nbsp;{{curr_total}} &nbsp;EOS</span>
                         <span @click="all">全部</span>
                     </p>
-                    <div class="con_row">
-                        <div class="con_col verify">
-                        <h3>手续费</h3>
-                        <input type="text" placeholder="" v-model="charge_num" disabled>
-                        </div>
-                    </div>
+                   
                     
                     
                     
@@ -70,13 +58,11 @@
             return {
                 mobile: "",
                 token: "",
-                number: "", //输入EB的数量
-                enable: "", //可用eb总数量
-                charge: "", //手续费比例
-                charge_num: "", //手续费金额
+                number: "", //输入eos的数量
+                curr_total: "", //可用eos总数量
                 qrcode_url: "", //该用户的转账二维码uri 需要带上token,
                 newBuy: "",
-                wallet: '56544sa2d12asd12as'
+                wallet: ''
             };
         },
         watch: {
@@ -85,11 +71,29 @@
             }
         },
         created() {
-           
+            this.$axios.get(
+                    "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
+                )
+                .then(r => {
+                    console.log(r)
+                    if (r.data.error != 0) {
+                        Toast({
+                        message: r.data.msg
+                        });
+                        return;
+                    }
+                this.list=r.data.data;
+                this.qrcode_url=this.list.qrcode_url;
+                this.curr_total=this.list.curr_total;
+                console.log(this.list)
+                })
+                .catch(err => {
+                    Toast("网络连接失败");
+                })
         },
         methods: {
             all() {
-                this.number = this.enable;
+                this.number = this.curr_total;
                 
             },
             goback() {
@@ -97,53 +101,34 @@
                     name: "home"
                 });
             },
-            copy() {
-                let clipboard = new Clipboard(".copy");
-                clipboard.on("success", function() {
-                   Toast('复制成功');
-                });
-                clipboard.on("error", function() {
-                    Toast('复制失败');
+            bill() {
+                this.$router.push({
+                    name: "bill"
                 });
             },
+           
             tosucceed() {
-                // if (
-                //     this.mobile == null ||
-                //     this.mobile == "" ||
-                //     this.mobile == undefined
-                // ) {
-                //     Toast("对方账户不能为空");
-                //     return;
-                // }
-                // if (
-                //     this.number == null ||
-                //     this.number == "" ||
-                //     this.number == undefined ||
-                //     this.number == 0
-                // ) {
-                //     Toast("转出数量不能为空");
-                //     return;
-                // } else if (Number(this.number) < 10) {
-                //     Toast("转出数量不能小于10");
-                //     return;
-                // } else if (Number(this.number) > Number(this.enable)) {
-                //     this.number = this.enable;
-                //     Toast("转出数量不能大于可用eb总数量");
-                //     return;
-                // } else if (this.number % 10 != 0) {
-                //     Toast("转出数量必须为10的整数倍");
-                //     return;
-                // }
-                // this.newBuy = "请输入您的支付密码";
+                if (this.myUtils.isNull(this.mobile)==true) {
+                    Toast("对方账户不能为空");
+                    return;
+                }
+                if (this.myUtils.isNull(this.number)==true) {
+                    Toast("转出数量不能为空");
+                    return;
+                } else if (Number(this.number) < 10) {
+                    Toast("转出数量不能小于10");
+                    return;
+                } else if (Number(this.number) > Number(this.curr_total)) {
+                    this.number = this.curr_total;
+                    Toast("转出数量不能大于可用eb总数量");
+                    return;
+                } else if (this.number % 10 != 0) {
+                    Toast("转出数量必须为10的整数倍");
+                    return;
+                }
+                this.newBuy = "请输入您的支付密码";
                 this.$refs["sendVal"].show();
-              this.$router.push({
-                            name: "success",
-                            query:{
-                                title:'转出',
-                                content:'恭喜您！转出成功，等待审核...',
-                                name:'home',
-                            }
-                    })
+                
             },
             scan() {
                 this.$router.push({
@@ -153,78 +138,46 @@
 
             getPwd(val) {
                 if (val.length === 6) {
-                //     this.$axios
-                //         .post(
-                //             "/Assets/transfer?token=" + this.token,
-                //             "&transfer_total=" +
-                //             this.number +
-                //             "&to_account_num=" +
-                //             this.mobile +
-                //             "&pay_pwd=" +
-                //             val
-                //         )
-                //         .then(r => {
-                //             if (r) {
-                //                 if (r.data.error == 98) {
-                //                     Toast({
-                //                         message: "登录信息已过期"
-                //                     });
-                //                     this.$router.push({
-                //                         name: "login"
-                //                     });
-                //                     localStorage.removeItem("token");
-                //                     return;
-                //                 }
-                //                 if (r.data.error == 99) {
-                //                     Toast({
-                //                         message: "登录信息已过期"
-                //                     });
-                //                     this.$router.push({
-                //                         name: "login"
-                //                     });
-                //                     localStorage.removeItem("token");
-                //                 } else if (r.data.error == 100) {
-                //                     Toast({
-                //                         message: "支付密码错误"
-                //                     });
-                //                     this.$refs.sendVal.$children[0].remov();
-                //                     return;
-                //                 } else if (r.data.error == 0) {
-                //                     this.$refs["sendVal"].close();
-                //                     this.$refs.sendVal.$children[0].remov();
-                //                     Toast({
-                //                         message: r.data.msg
-                //                     });
-                //                     this.$router.push({
-                //                         name: "transferSucceed"
-                //                     });
-                //                 } else {
-                //                     this.$refs["sendVal"].close();
-                //                     this.$refs.sendVal.$children[0].remov();
-                //                     Toast({
-                //                         message: r.data.msg
-                //                     });
-
-                //                     return;
-                //                 }
-                //             }
-                //         })
-                //         .catch(err => {
-                //             Indicator.close();
-                //             Toast("网络连接失败");
-                //         });
-
-                this.$router.push({
-                            name: "success",
-                            query:{
-                                title:'转出',
-                                content:'恭喜您！转出成功，等待审核...',
-                                name:'home',
+                    this.$axios
+                        .post(
+                            "/member/transfer?token=" + this.token,
+                            "&transfer_total=" +
+                            this.number +
+                            "&to_account_num=" +
+                            this.mobile +
+                            "&pay_pwd=" +
+                            val
+                        )
+                        .then(r => {
+                            if (r) {
+                                console.log(r)
+                               if (r.data.error != 0) {
+                                    Toast({
+                                    message: r.data.msg
+                                    });
+                                    return;                                
+                                } else {
+                                    this.$refs["sendVal"].close();
+                                    this.$refs.sendVal.$children[0].remov();
+                                    Toast({
+                                        message: r.data.msg
+                                    });
+                                    this.$router.push({
+                                        name: "success",
+                                        query:{
+                                            title:'转出',
+                                            content:'恭喜您！转出成功，等待审核...',
+                                            name:'home',
+                                        }
+                                    })
+                                }
                             }
-                    })
+                        })
+                        .catch(err => {
+                            Indicator.close();
+                            Toast("网络连接失败");
+                        });
                 }
-
-                
             }
         }
 
@@ -257,32 +210,33 @@
     }
     
     .head .title {
-        color: #fff;
+        color: #38D4CB;
         line-height: 0.4rem;
-        font-size: 0.18rem;
+        font-size: 0.2rem;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
     
     .head i {
-        color: #fff;
+        color: #38D4CB;
         line-height: 0.5rem;
-        font-size: 0.3rem;
+        font-size: 0.22rem;
         text-align: left;
         padding: 0.1rem;
     }
     
     .head i:last-child {
-        font-size: 0.25rem;
+        font-size: 0.2rem;
         float: right;
-        line-height: normal;
+        line-height: 0.4rem;
+        padding: 0 0.1rem 0 0;
     }
     
     .content {
         width: 100%;
         height: 100%;
-        padding: 0.72rem 0.38rem 0 0.38rem;
+        padding: 0.92rem 0.38rem 0 0.38rem;
         .code {
             width: 3rem;
             height: 2.4rem;
@@ -307,6 +261,16 @@
                 color: #ccc;
                 text-align: center;
                 margin: 0 auto;
+                position: relative;
+                i{
+                   position: absolute;
+                   display: inline-block;
+                   bottom:-0.08rem;
+                   right:0.2rem;
+                   font-size: 0.26rem;
+                   color:#38D4CB;
+                   font-weight: bold;
+                }
             }
         }
         .tip {

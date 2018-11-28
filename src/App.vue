@@ -43,7 +43,7 @@ export default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.4s cubic-bezier(0.22, 0, 0.1, 1);
-  background: #282d41;
+  background: #282D41;
 }
 
 .slide-left-enter,

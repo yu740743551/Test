@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="head">
-            <i class="iconfont iconfonts icon-quxiao" @click="goback"></i>
+            <i class="iconfont iconfonts icon-fanhui" @click="goback"></i>
             <span class="title">注册</span>
         </div>
         <div class="big">
@@ -143,18 +143,18 @@ import { Toast } from 'vant';
     }
     
     .head .title {
-        color: #fff;
+        color: #38D4CB;
         line-height: 0.4rem;
-        font-size: 0.18rem;
+        font-size: 0.2rem;
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
     }
     
     .head i {
-        color: #fff;
+        color: #38D4CB;
         line-height: 0.4rem;
-        font-size: 0.3rem;
+        font-size: 0.22rem;
         text-align: left;
         padding: 0.1rem;
     }

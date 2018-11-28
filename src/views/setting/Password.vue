@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="head">
-            <i class="iconfont icon-quxiao" @click="goback"></i>
+            <i class="iconfont icon-fanhui" @click="goback"></i>
             <span class="title">修改登录密码</span>
         </div>
        <div class="center">              
@@ -111,7 +111,7 @@ export default {
 }
 
 .head .title {
-  color: #fff;
+  color: #38D4CB;
   line-height: 0.4rem;
   font-size: 0.18rem;
   position: absolute;
@@ -119,9 +119,9 @@ export default {
   transform: translateX(-50%);
 }
 .head i {
-  color: #fff;
+  color: #38D4CB;
   line-height: 0.45rem;
-  font-size: 0.3rem;
+  font-size: 0.22rem;
   text-align: left;
   padding: 0.1rem;
 }

@@ -15,6 +15,7 @@ import Password from '@/views/setting/Password'
 import Paypassword from '@/views/setting/Paypassword'
 //转账
 import Transfer from '@/views/transfer/Transfer'
+import Bill from '@/views/transfer/Bill'
 
 //登录
 import ForgetPassword from '@/views/login/ForgetPassword'
@@ -115,6 +116,12 @@ export default [
         name: 'transfer',
         meta: { index: 6 },
         component: Transfer
+    },
+    {
+        path: '/Bill',
+        name: 'bill',
+        meta: { index: 7 },
+        component: Bill
     },
     
     {
