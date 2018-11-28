@@ -48,9 +48,9 @@ export default {
       number: "", //用户输入的转账额度
       curr_total: "", //可用eos总数量
       charge: "", //提币手续费比例
-      charge_num: "0 EB", //手续费金额
+      charge_num: "0 EOS", //手续费金额
       newBuy: "",
-      token: "",
+      token:window.localStorage.getItem("token"),
     };
   },
   watch: {
@@ -61,12 +61,17 @@ export default {
   },
   created() {
     this.mobile = this.$route.query.mobile;
+    Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
     // 获取转账信息接口
      this.$axios.get(
             "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
         )
         .then(r => {
-            console.log(r)
+            Toast.clear();
              if (this.myUtils.isSuccess(r, this) == false) {
                 return;
             }
@@ -90,32 +95,19 @@ export default {
     // },
 
     getmoney() {
-      if (
-        this.mobile == null ||
-        this.mobile == "" ||
-        this.mobile == undefined
-      ) {
-        Toast("提币账户不能为空");
-        return;
-      }
-
-      if (
-        this.number == null ||
-        this.number == "" ||
-        this.number == undefined ||
-        this.number == 0
-      ) {
+      if (this.myUtils.isNull(this.mobile)==true) {
         Toast("提币数量不能为空");
         return;
-      } else if (this.number < 100) {
-        Toast("提币数量不能小于100");
+      } else if (this.number < 5) {
+        Toast("提币数量不能小于5");
         return;
       } else if (Number(this.number) > Number(this.curr_total)) {
         this.number = this.curr_total;
         Toast("提币数量不能大于可用eb总数量");
         return;
-      } else if (this.number % 100 != 0) {
-        Toast("提币数量必须为100的整数倍");
+      }
+      if (this.myUtils.isNull(this.mobile)==true) {
+        Toast("提币账户不能为空");
         return;
       }
       this.newBuy = "请输入您的支付密码";
@@ -123,63 +115,49 @@ export default {
     },
     getPwd(val) {
       if (val.length === 6) {
-        // console.log(val);
-        // this.$axios
-        //   .post(
-        //     "/Assets/withdraw?token=" + this.token,
-        //     "&withdraw_total=" +
-        //       this.number +
-        //       "&wallet_address=" +
-        //       this.mobile +
-        //       "&pay_pwd=" +
-        //       val
-        //   )
-        //   .then(r => {
-        //     if (r) {
-        //       if (r.data.error == 98) {
-        //         Toast({
-        //           message: "登录信息已过期"
-        //         });
-        //         this.$router.push({ name: "login" });
-        //       }
-        //       if (r.data.error == 99) {
-        //         Toast({
-        //           message: "登录信息已过期"
-        //         });
-        //         this.$router.push({ name: "login" });
-        //       } else if (r.data.error == 100) {
-        //         Toast({
-        //           message: "支付密码错误"
-        //         });
-        //         this.$refs.sendVal.$children[0].remov();
-        //         return;
-        //       } else if (r.data.error == 0) {
-        this.$refs["sendVal"].close();
-        this.$refs.sendVal.$children[0].remov();
-        // Toast({
-        //   message: r.data.msg
-        // });
-        this.$router.push({
-            name: "success",
-            query:{
-                title:'提币',
-                content:'恭喜您！提币成功，等待审核...',
-                name:'home',
-            }
-          });
-        //       } else {
-        //         this.$refs["sendVal"].close();
-        //         this.$refs.sendVal.$children[0].remov();
-        //         Toast({
-        //           message: r.data.msg
-        //         });
-        //         return;
-        //       }
-        //     }
-        //   })
-        //   .catch(err => {
-        //     Toast("网络连接失败");
-        //   });
+       Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
+        this.$axios
+            .post(
+                "/member/withdraw?token=" + this.token,
+                "&withdraw_total=" +
+                this.number +
+                "&wallet_address=" +
+                this.mobile +
+                "&pay_pwd=" +
+                val
+            )
+            .then(r => {
+                 Toast.clear();
+                if (r) {
+                    console.log(r)
+                    this.$refs["sendVal"].close();
+                    this.$refs.sendVal.$children[0].remov();
+                    if (this.myUtils.isSuccess(r, this) == false) {
+                        return;
+                    }                                
+                    Toast({
+                        message: r.data.msg
+                    });
+                   this.$router.push({
+                        name: "success",
+                        query:{
+                            title:'提币',
+                            content:'恭喜您！提币成功，等待审核...',
+                            name:'home',
+                        }
+                    });
+                    
+                }
+            })
+            .catch(err => {
+                
+                Indicator.close();
+                Toast("网络连接失败");
+            });
       }
     }
   }

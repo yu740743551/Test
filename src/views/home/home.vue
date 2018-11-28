@@ -1,5 +1,5 @@
 <template>
-  <scroller :on-refresh="refresh" ref="myscroller">
+  <scroller :on-refresh="refresh" ref="myscroller" >
     <div class="home">
       <div class="gif">
         <div class="gifs">
@@ -11,15 +11,15 @@
         <div class="kuang">
           <p>
             中级矿机
-            <span>{{datas.middle}}/台</span>
+            <span>{{userInfos.middle}}/台</span>
           </p>
           <p>
             高级矿机
-            <span>{{datas.highe}}/台</span>
+            <span>{{userInfos.highe}}/台</span>
           </p>
           <p>
             超级矿机
-            <span>{{datas.super}}/台</span>
+            <span>{{userInfos.super}}/台</span>
           </p>
         </div>
       </div>
@@ -31,11 +31,11 @@
             <li>可用</li>
           </ul>
           <ul>
-            <li>{{list.all_power}}</li>
-            <li>{{list.today_power}}</li>
+            <li>{{userInfos.all_power}}</li>
+            <li>{{userInfos.today_power}}</li>
             <li>
-              <span>{{list.curr_total}}</span>
-              <span>{{list.curr}}</span>
+              <span>{{userInfos.curr_total}}</span>
+              <span>{{userInfos.curr}}</span>
             </li>
           </ul>
         </div>
@@ -54,78 +54,45 @@
         <ul>
           <li class="weight">
             <p>类型</p>
+            <p>时间</p>
             <p>数量</p>
           </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
+          <li v-for="data in bill">
+            <p>{{data.type}}</p>
+            <p>{{data.createtime}}</p>
+            <p :class="{'sum':data.symbol=='+'}"><span>{{data.symbol}}</span>{{data.amount}}</p>
           </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
-          <li>
-            <p>电费消耗</p>
-            <p>1.5EOS</p>
-          </li>
+          
         </ul>
       </div>
     </div>
   </scroller>
 </template>
 <script>
+import { mapMutations, mapGetters } from "vuex";
+import { mapObject } from "underscore";
+import { Toast } from "vant";
 export default {
   data() {
     return {
       count: 0,
       isLoading: false,
+      offset: '',
+      page: 1,
+      limit: 10,
       list: [],
-      datas: []
+      datas: [],
+      bill: [],
     };
   },
   created() {
-    this.$axios
-      .get("/member/getInfo?token=" + window.localStorage.getItem("token"))
-      .then(r => {
-        if (this.myUtils.isSuccess(r, this) == false) {
-          return;
-        }
-        this.list = r.data.data;
-        this.datas = r.data.data.rebot;
-      })
-      .catch(err => {
-        Toast("网络连接失败");
-      });
+    this.getdata();
+  },
+   computed: {
+    ...mapGetters(["userInfos"])
   },
   methods: {
+    ...mapMutations(["set_userInfo"]),
     extract() {
       this.$router.push({
         name: "extract"
@@ -137,9 +104,52 @@ export default {
       });
     },
     refresh() {
+       this.getdata();
       setTimeout(r => {
         this.$refs["myscroller"].finishPullToRefresh();
       }, 500);
+    },
+    getdata(){
+        Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
+        this.$axios
+        .get("/member/getInfo?token=" + window.localStorage.getItem("token"))
+        .then(r => {
+            Toast.clear();
+            console.log(r)
+            if (this.myUtils.isSuccess(r, this) == false) {
+            return;
+            }
+            this.list = r.data.data;
+            this.datas = r.data.data.rebot;
+            mapObject(this.list, (val, key) => {
+            this.set_userInfo({ val, key });
+             });
+            mapObject(this.datas, (val, key) => {
+                this.set_userInfo({ val, key });
+            });
+        })
+        .catch(err => {
+            Toast("网络连接失败123");
+        });
+        this.$axios
+            .get("/member/getPower?token=" + window.localStorage.getItem("token")+
+            "&offset=0&limit=10" 
+        )
+        .then(r => {
+            Toast.clear();
+            if (this.myUtils.isSuccess(r, this) == false) {
+            return;
+            }
+            this.bill = r.data.data.list;
+           
+        })
+        .catch(err => {
+            Toast("网络连接失败123");
+        });
     }
   }
 };
@@ -305,14 +315,14 @@ export default {
   background: #373c4f;
 }
 
-.minxis ul li p:nth-of-type(1) {
-  width: 50%;
+.minxis ul li p.sum {
+    color:e92312;
+}
+.minxis ul li p{
+  width: 33.33%;
 }
 
-.minxis ul li p:nth-of-type(2) {
-  width: 50%;
-  color: #e92312;
-}
+
 
 .minxis ul .weight p {
   font-size: 0.15rem;

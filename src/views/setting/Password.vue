@@ -62,6 +62,11 @@ export default {
         Toast("2次输入的密码不一致");
         return;
       }
+      Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
       this.$axios
         .post(
           "/member/resetLoginPwd?token=" +
@@ -71,6 +76,7 @@ export default {
           "&confirm_pwd=" + this.confirm_pwd
         )
         .then(r => {
+             Toast.clear();
          if (this.myUtils.isSuccess(r, this) == false) {
           return;
         }

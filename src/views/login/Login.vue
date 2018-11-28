@@ -74,13 +74,18 @@ export default {
         });
         return;
       }
-      
+      Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
       this.$axios
         .post(
           "/login/doLogin",
           "mobile=" + this.name + "&login_pwd=" + this.password
         )
         .then(r => {
+            Toast.clear();
             if (this.myUtils.isSuccess(r, this) == false) {
             return;
             }
@@ -91,7 +96,8 @@ export default {
           this.$router.push({
             name: "home"
           });
-        }).catch(err => {
+        })
+        .catch(err => {
             Toast("网络连接失败");
         });
      

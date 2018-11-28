@@ -9,24 +9,25 @@
             <span>没有找到相关记录</span>
         </div>
          <div class="content" v-if="isshow">
-                <ul>
-                    <li class="clear" v-for="data in list">
-                        <p class="title">
-                            <span >{{data.flowdes}}</span>        
-                            <span class="time">{{data.createtime}}</span>        
-                        </p>
-                        <p class="type">
-                                {{data.type}}
-                        </p>
-                        <p  :class="{'sum':data.symbol=='+'}">
-                            <span >
-                                <span >{{data.symbol}}</span>
-                                {{data.amount}} </span> 
-                            <span class="unit">{{data.unit}}</span>
-                        </p>
-                    </li>
-                    
-                </ul>
+              <scroller :on-infinite="infinite" ref="myscroller" :on-refresh = "refresh" class="ones">
+                    <ul>
+                        <li class="clear" v-for="data in list">
+                            <p class="title">
+                                <span >{{data.flowdes}}</span>        
+                                <span class="time">{{data.createtime}}</span>        
+                            </p>
+                            <p class="type">
+                                    {{data.type}}
+                            </p>
+                            <p  :class="{'sum':data.symbol=='+'}">
+                                <span >
+                                    <span >{{data.symbol}}</span>
+                                    {{data.amount}} </span> 
+                                <span class="unit">{{data.unit}}</span>
+                            </p>
+                        </li>                    
+                    </ul>
+                 </scroller>
          </div>
     </div>
 </template>
@@ -57,7 +58,7 @@ export default {
   },
   created() {
     this.token = window.localStorage.getItem("token");
-    this.getdata();
+    // this.getdata();
   },
   methods: {
     goback() {
@@ -66,8 +67,7 @@ export default {
     tosucceed() {
       this.$router.push({ name: "transferSucceed" });
     },
-    getdata(fn) {
-        console.log(111)
+    getdata() {
       this.offset = (this.page - 1) * this.limit;
       this.url =
         "/member/getFlow?token=" +
@@ -76,39 +76,56 @@ export default {
         this.offset +
         "&limit=" +
         this.limit;
+
+        Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 10000
+      });
       this.$axios.get(this.url).then(r => {
-          console.log(r)
+        Toast.clear();
         if (this.myUtils.isSuccess(r, this) == false) {
           return;
         }
 
-        if (r.data.data.list.length == 0) {
-          //下拉加载更多的关闭事件
-           this.isshow = false;
-          this.$refs.myscroller.finishInfinite(2);
-        }
-        if (this.page === 1) {
+        // if (r.data.data.list.length == 0) {
+        //   //下拉加载更多的关闭事件
+        //    this.isshow = false;
+        //   this.$refs.myscroller.finishInfinite(2);
+        // }
+        if (this.page == 1) {
+            console.log(1)
           this.list = r.data.data.list; //如果是想下滑动，刷新数据 就让list等于最新数据
           //上刷新的关闭事件
           this.$refs.myscroller.finishPullToRefresh(2);
+          this.$refs.myscroller.finishInfinite(2);
+          if(this.list.length == 0){
+               this.isshow = false;
+               this.$refs.myscroller.finishInfinite(2);
+          }
         } else {
           this.list = this.list.concat(r.data.data.list); //否则就把数据拼接
           this.$refs.myscroller.finishInfinite(2);
+          if(this.list.length == 0){
+               this.isshow = false;
+               this.$refs.myscroller.finishInfinite(2);
+          }
         }
         
       }).catch(err => {
             Toast("网络连接失败");
         });
     },
-    //上拉加载
-    infinite(done) {
+    // 上拉加载
+    infinite() {
       if (this.list == "") {
         this.getdata();
+        return
       }
       this.page++;
-      this.getdata(done);
+      this.getdata();
     },
-    //下拉刷新
+    // 下拉刷新
     refresh() {
       this.page = 1;
       this.getdata();
@@ -121,7 +138,9 @@ export default {
 * {
   box-sizing: border-box;
 }
-
+.section {
+    background: #282D41
+}
 .no_record {
   margin-top: 1rem;
   padding-top: 30px;

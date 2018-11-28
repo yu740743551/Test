@@ -93,6 +93,11 @@ import { Toast } from 'vant';
                     });
                     return;
                 }
+                Toast.loading({
+                        mask: true,
+                        message: "加载中...",
+                        duration: 10000
+                });                
                 this.$axios.post(
                         "/Reg/register?token=" + this.token,
                         "mobile=" +
@@ -105,6 +110,7 @@ import { Toast } from 'vant';
                         this.mailbox
                         
                     ).then(r => {
+                        Toast.clear();
                         if (this.myUtils.isSuccess(r, this) == false) {
                             return;
                         }

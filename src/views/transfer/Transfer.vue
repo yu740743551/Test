@@ -71,18 +71,22 @@
             }
         },
         created() {
+            Toast.loading({
+                mask: true,
+                message: "加载中...",
+                duration: 10000
+            });
             this.$axios.get(
                     "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
                 )
                 .then(r => {
-                console.log(r)
+                Toast.clear();
                 if (this.myUtils.isSuccess(r, this) == false) {
                     return;
                 }
                 this.list=r.data.data;
                 this.qrcode_url=this.list.qrcode_url;
                 this.curr_total=this.list.curr_total;
-                console.log(this.list)
                 })
                 .catch(err => {
                     Toast("网络连接失败");
@@ -135,7 +139,11 @@
 
             getPwd(val) {
                 if (val.length === 6) {
-                    console.log(val)
+                    Toast.loading({
+                        mask: true,
+                        message: "加载中...",
+                        duration: 10000
+                    });
                     this.$axios
                         .post(
                             "/member/transfer?token=" + this.token,
@@ -148,7 +156,7 @@
                         )
                         .then(r => {
                             if (r) {
-                                console.log(r)
+                                Toast.clear();
                                 this.$refs["sendVal"].close();
                                 this.$refs.sendVal.$children[0].remov();
                                  if (this.myUtils.isSuccess(r, this) == false) {
@@ -161,7 +169,7 @@
                                     name: "success",
                                     query:{
                                         title:'转出',
-                                        content:'恭喜您！转出成功，等待审核...',
+                                        content:'恭喜您！转出成功',
                                         name:'home',
                                     }
                                 })
@@ -169,7 +177,7 @@
                             }
                         })
                         .catch(err => {
-                            console.log("网络连接失败")
+                            
                             Indicator.close();
                             Toast("网络连接失败");
                         });

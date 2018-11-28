@@ -2,15 +2,14 @@ const userInfo = {
     state: {
         namespaced: true,
         userInfo: {
-            nickname: null, //用户名
-            member_icon: null, //用户头像
-            total_eb: null, //总资产eb
-            total_usdt: null, //总资产usdt
-            enable_eb: null, //可用资产eb
-            enable_usdt: null, //可用usdt
-            yday_total_eb: null, //昨日收益eb
-            yday_total_usdt: null, //昨日收益usdt
-            usdt_to_eb:null, //usdt兑换eb的倍数
+            curr_total: null, //可用虚拟货币总额度
+            curr: null, //货币单位
+            today_power: null, //今日算力
+            all_power: null, //全网算力
+            middle: null, //中级 对应数量
+            super: null, //超级 对应数量
+            highe: null //高级 对应数量
+          
         }
     },
     getters: {

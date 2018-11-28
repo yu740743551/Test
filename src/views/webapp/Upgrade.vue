@@ -95,7 +95,7 @@ export default {
       Toast.loading({
         mask: true,
         message: "加载中...",
-        duration: 100000
+        duration: 10000
       });
       this.$axios
         .post(
