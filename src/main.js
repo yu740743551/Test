@@ -14,7 +14,6 @@ import Vant from 'vant';
 import 'vant/lib/index.css';
 import myUtils from './utils/myUtils'
 Vue.prototype.myUtils = myUtils;
-console.log(Vue.prototype)
 Vue.use(Vant);
 import VueScroller from 'vue-scroller';
 Vue.use(VueScroller)
