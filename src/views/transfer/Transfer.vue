@@ -67,6 +67,7 @@
             }
         },
         created() {
+            this.mobile = this.$route.query.mobile;
             Toast.loading({
                 mask: true,
                 message: "加载中...",
@@ -112,17 +113,11 @@
                 if (this.myUtils.isNull(this.number)==true) {
                     Toast("转出数量不能为空");
                     return;
-                } else if (Number(this.number) < 10) {
-                    Toast("转出数量不能小于10");
-                    return;
                 } else if (Number(this.number) > Number(this.curr_total)) {
                     this.number = this.curr_total;
                     Toast("转出数量不能大于可用eb总数量");
                     return;
-                } else if (this.number % 10 != 0) {
-                    Toast("转出数量必须为10的整数倍");
-                    return;
-                }
+                } 
                 this.newBuy = "请输入您的支付密码";
                 this.$refs["sendVal"].show();
                 
