@@ -1,87 +1,128 @@
 <template>
-    <div class="section">
-            <div class="head">
-            <i class="iconfont iconfonts icon-fanhui" @click="goback"></i>
-            <span class="title">升级</span>
-            <!-- <i class="iconfont  icon-saoyisao1" @click="scan"></i> -->
-            </div>
-            
-            <div class="content">
-                <div class="code">
-                    <div class="code_bg">
-                        <img  alt="" src="../../assets/images/code.png">
-                    </div>
-                    <h4>官方升级地址（下方地址长按可复制）</h4>
-                    <h3>0x8547274222E174999aDA60D64b44b2a699E48390</h3>
-                     <div class="danjia fl_box">
-                         <p>单价/EOS</p>
-                         <p>20000.00</p>
-                    </div>
-                    <div class="heji fl_box">
-                         <p>合计 <span>x {{num}}</span></p>
-                         <p>200000.00</p>
-                    </div>
-                </div>
-                <div class="file">
-                    <input type="file" class="inputFile" ref="input" @change="fileChange" multiple accept="image/*">
-                    <i class="iconfont icon-shangchuan"></i>
-                    <h3>上传截图</h3>
-                </div>
-                <div class="put">
-                    <p>HX</p>
-                    <input type="text" >
-                </div>
-               
-                
-                <p class="btn " @click="tosucceed">提交</p>
-            
-            </div>
-        <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard>
+  <div class="section">
+    <div class="head">
+      <i class="iconfont iconfonts icon-fanhui" @click="goback"></i>
+      <span class="title">升级</span>
+      <!-- <i class="iconfont  icon-saoyisao1" @click="scan"></i> -->
     </div>
-    
+
+    <div class="content">
+      <div class="code">
+        <div class="code_bg">
+          <img alt src="../../assets/images/code.png">
+        </div>
+        <h4>官方升级地址（下方地址长按可复制）</h4>
+        <h3>0x8547274222E174999aDA60D64b44b2a699E48390</h3>
+        <div class="danjia fl_box">
+          <p>单价/EOS</p>
+          <p>{{price}}</p>
+        </div>
+        <div class="heji fl_box">
+          <p>
+            合计
+            <span>x {{num}}</span>
+          </p>
+          <p>{{unit}}</p>
+        </div>
+      </div>
+      <div class="file" v-bind:style="{backgroundImage:'url(' + imgL + ')'}">
+        <input
+          type="file"
+          class="inputFile"
+          ref="input"
+          @change="fileChange"
+          multiple
+          accept="image/*"
+        >
+        <div v-if="isshow">
+          <i ref="icot" class="iconfont icon-shangchuan"></i>
+          <h3>上传截图</h3>
+        </div>
+      </div>
+      <div class="put">
+        <p>HX</p>
+        <input type="text" v-model="payinfo_num">
+      </div>
+
+      <p class="btn" @click="tosucceed">提交</p>
+    </div>
+    <!-- <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard> -->
+  </div>
 </template>
 <script>
-import PayKeyboard from "@/components/PayKeyboard";
-import { Toast } from "mint-ui";
-
 // import  '@/assets/js/inputs.js'
+import { Toast } from "vant";
 export default {
-  components: {
-    PayKeyboard
-  },
+  // components: {
+  //   PayKeyboard
+  // },
 
   data() {
     return {
       qrcode_url: "../../assets/images/code.png",
       newBuy: "",
       num: "",
+      type: "",
+      price: "",
+      unit: "",
+      imgL: "",
+      isshow: true,
+      payinfo_num: ""
     };
   },
   watch: {},
   created() {
-      this.num = this.$route.query.num;
+    this.num = this.$route.query.num;
+    this.type = this.$route.query.type;
+    this.price = this.$route.query.price;
+    console.log(this.price);
+    this.unit = this.num * this.price;
   },
   methods: {
     goback() {
       this.$router.go(-1);
     },
     tosucceed() {
-      this.newBuy = "请输入您的支付密码";
-      this.$refs["sendVal"].show();
-    },
-    getPwd(val) {
-      if (val.length === 6) {
-        console.log(val);
-        this.$refs["sendVal"].close();
-        this.$router.push({
-            name: "success",
-            query:{
-                title:'升级成功',
-                content:'恭喜您！升级成功，等待审核...',
-                name:'webapp',
-            }
-        });
+      if (this.imgL == "") {
+        Toast("请上传支付截图");
+        return;
       }
+
+      if (this.payinfo_num == "") {
+        Toast("请填写交易号");
+        return;
+      }
+      Toast.loading({
+        mask: true,
+        message: "加载中...",
+        duration: 100000
+      });
+      this.$axios
+        .post(
+          "member/recharge?token=" + localStorage.getItem("token"),
+          "payinfo_pic=" +
+            this.imgL +
+            "&payinfo_num=" +
+            this.payinfo_num +
+            "&rebot_type=" +
+            this.type +
+            "&rebot_num=" +
+            this.num
+        )
+        .then(r => {
+          Toast.clear();
+          if (this.myUtils.isSuccess(r, this) == false) {
+            return;
+          }
+          this.$router.push({
+            name: "success",
+            query: {
+              title: "升级矿机",
+              content: "恭喜您！升级成功，等待审核...",
+              name: "home"
+            }
+          });
+        });
     },
     fileChange() {
       let file = this.$refs.input.files[0];
@@ -95,7 +136,7 @@ export default {
         var dataURL = reader.result;
 
         _this.imgL = dataURL.replace(/\+/g, "%2B");
-        _this.issgows = false;
+        _this.isshow = false;
       };
     }
   }
@@ -109,7 +150,7 @@ export default {
 
 .section {
   height: 100vh;
-//   overflow: hidden;
+  //   overflow: hidden;
 }
 
 .head {
@@ -118,13 +159,13 @@ export default {
   top: 0;
   width: 100%;
   padding-top: 0.3rem;
-  background: #282D41;
+  background: #282d41;
   opacity: 1;
   z-index: 99;
 }
 
 .head .title {
-  color: #38D4CB;
+  color: #38d4cb;
   line-height: 0.4rem;
   font-size: 0.2rem;
   position: absolute;
@@ -133,7 +174,7 @@ export default {
 }
 
 .head i {
-  color: #38D4CB;
+  color: #38d4cb;
   line-height: 0.45rem;
   font-size: 0.22rem;
   text-align: left;
@@ -148,7 +189,7 @@ export default {
 
 .content {
   width: 3rem;
-//   height: 100%;
+  //   height: 100%;
   margin: 0.6rem auto 0 auto;
   .code {
     width: 3rem;
@@ -229,6 +270,8 @@ export default {
     border-radius: 2px;
     margin: 0 auto;
     position: relative;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
     input {
       position: absolute;
       top: 0;
