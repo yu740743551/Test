@@ -32,8 +32,12 @@ import { Toast } from 'vant';
                 Dialog.confirm({
                         title: "提示",
                         message: "确定退出登录吗"
-                    })
-                    .then(action => {
+                    }).then(action => {
+                        Toast.loading({
+                            mask: true,
+                            message: "加载中...",
+                            duration: 10000
+                            });
                         // on confirm
                          this.$axios
                         .get(
@@ -41,6 +45,7 @@ import { Toast } from 'vant';
                             "token=" + window.localStorage.getItem("token")
                         )
                         .then(r => {
+                            Toast.clear();
                             localStorage.removeItem("token");
                             this.$router.push({
                             name: "login"

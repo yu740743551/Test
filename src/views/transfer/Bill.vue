@@ -32,14 +32,10 @@
     </div>
 </template>
 <script>
-import { Toast } from "mint-ui";
-import { Loadmore } from "mint-ui";
-import { Indicator } from "mint-ui";
-import { InfiniteScroll } from "mint-ui";
+import { Toast } from "vant";
+
 export default {
   components: {
-    Loadmore,
-    InfiniteScroll
   },
   data() {
     return {
@@ -192,6 +188,7 @@ export default {
   margin: 0rem 0.16rem 0 0.16rem;
   padding-top: 0.7rem;
   min-height: 100vh;
+  background: #282D41;
 
   ul {
     width: 100%;

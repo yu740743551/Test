@@ -27,10 +27,10 @@ Vue.prototype.$axios = axios;
 // axios.defaults.baseURL = 'http://192.168.10.158:888/api.php/'
 // axios.defaults.baseURL = 'http://127.0.0.1:888/api.php/'
 // axios.defaults.baseURL = 'http://os.bibashi.cn/api.php?s='
-// axios.defaults.baseURL = 'http://apiwb.hkex.link'
-axios.defaults.baseURL = 'http://api.kj.com/'
+axios.defaults.baseURL = 'http://apiwb.hkex.link'
+// axios.defaults.baseURL = 'http://api.kj.com/'
 
-/* eslint-disable no-new */
+    /* eslint-disable no-new */
 VueRouter.prototype.goBack = function() {
     this.isBack = true
     window.history.go(-1)

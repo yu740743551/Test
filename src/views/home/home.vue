@@ -114,7 +114,7 @@ export default {
         mask: true,
         message: "加载中...",
         duration: 10000
-      });
+        });
         this.$axios
         .get("/member/getInfo?token=" + window.localStorage.getItem("token"))
         .then(r => {
@@ -133,7 +133,7 @@ export default {
             });
         })
         .catch(err => {
-            Toast("网络连接失败123");
+            Toast("网络连接失败");
         });
         this.$axios
             .get("/member/getPower?token=" + window.localStorage.getItem("token")+
@@ -148,7 +148,7 @@ export default {
            
         })
         .catch(err => {
-            Toast("网络连接失败123");
+            Toast("网络连接失败");
         });
     }
   }

@@ -38,7 +38,6 @@
 import LangSelect from "@/components/LangSelect";
 import { Toast } from 'vant';
 import SIdentify from "@/components/VerificationCode";
-import { Indicator } from "mint-ui";
 export default {
   components: {},
   data() {

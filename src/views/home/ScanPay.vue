@@ -20,7 +20,7 @@
 
 <script>
 let scan = null;
-import { Toast } from "mint-ui";
+import { Toast } from "vant";
 export default {
   data() {
     return {

@@ -31,10 +31,6 @@
                         <span>可用&nbsp;{{curr_total}} &nbsp;EOS</span>
                         <span @click="all">全部</span>
                     </p>
-                   
-                    
-                    
-                    
             </form>
             <p class="btn btn_ture" @click="tosucceed">转账</p>
             
@@ -85,7 +81,7 @@
                     return;
                 }
                 this.list=r.data.data;
-                this.qrcode_url=this.list.qrcode_url;
+                this.qrcode_url=this.list.qrcode_url+"&token="+ this.token;
                 this.curr_total=this.list.curr_total;
                 })
                 .catch(err => {
