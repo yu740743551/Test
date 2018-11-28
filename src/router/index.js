@@ -1,5 +1,5 @@
 import Home from '@/views/home/home'
-import ScanPay from '@/views/home/ScanPay'
+// import ScanPay from '@/views/home/ScanPay'
 //全局
 import Layout from '@/views/layout/Index'
 //应用
@@ -22,8 +22,7 @@ import ScanPay from '@/views/transfer/ScanPay'
 import ForgetPassword from '@/views/login/ForgetPassword'
 import Login from '@/views/login/Login'
 
-export default [
-    {
+export default [{
         path: '/success',
         name: 'success',
         meta: { index: 20 },
@@ -45,7 +44,7 @@ export default [
         component: Extract
 
     },
-  
+
     {
         path: '/register',
         name: 'register',
@@ -53,7 +52,7 @@ export default [
         component: Register
 
     },
-    
+
     {
         path: '/password',
         name: 'password',
@@ -64,7 +63,7 @@ export default [
     {
         path: '/paypassword',
         name: 'paypassword',
-        meta: { index: 9},
+        meta: { index: 9 },
         component: Paypassword
 
     },
@@ -99,7 +98,7 @@ export default [
         meta: { index: 2 },
         component: Upgrade
     },
-   
+
     {
         path: '/Login',
         name: 'login',
@@ -124,7 +123,7 @@ export default [
         meta: { index: 7 },
         component: Bill
     },
-    
+
     {
         path: '*',
         meta: { index: 0 },
