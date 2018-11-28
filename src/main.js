@@ -15,7 +15,7 @@ import 'vant/lib/index.css';
 import myUtils from './utils/myUtils'
 Vue.prototype.myUtils = myUtils;
 console.log(Vue.prototype)
-    // Vue.use(Vant);
+Vue.use(Vant);
 import VueScroller from 'vue-scroller';
 Vue.use(VueScroller)
 Vue.use(Mui);
@@ -28,7 +28,9 @@ Vue.prototype.$axios = axios;
 // axios.defaults.baseURL = 'http://192.168.10.158:888/api.php/'
 // axios.defaults.baseURL = 'http://127.0.0.1:888/api.php/'
 // axios.defaults.baseURL = 'http://os.bibashi.cn/api.php?s='
-axios.defaults.baseURL = 'http://apieb.hkex.link'
+// axios.defaults.baseURL = 'http://apiwb.hkex.link'
+axios.defaults.baseURL = 'http://api.kj.com/'
+
     /* eslint-disable no-new */
 VueRouter.prototype.goBack = function() {
     this.isBack = true
