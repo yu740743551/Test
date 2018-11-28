@@ -24,7 +24,7 @@
                     <div class="con_row" style="margin:0">
                         <div class="con_col login_pwd">
                         <h3>数量</h3>
-                        <input type="bumber" placeholder="最低10EOS" @click="myUtils.iosActive($event)" ref='2' id='fok1'  v-model.trim.lazy="number" >                    
+                        <input type="number" placeholder="最低10EOS" @click="myUtils.iosActive($event)" ref='2' id='fok1'  v-model.trim.lazy="number" >                    
                         </div>
                     </div>
                     <p class="tip">
@@ -57,7 +57,7 @@
         data() {
             return {
                 mobile: "",
-                token: "",
+                token:window.localStorage.getItem("token"),
                 number: "", //输入eos的数量
                 curr_total: "", //可用eos总数量
                 qrcode_url: "", //该用户的转账二维码uri 需要带上token,
@@ -75,13 +75,10 @@
                     "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
                 )
                 .then(r => {
-                    console.log(r)
-                    if (r.data.error != 0) {
-                        Toast({
-                        message: r.data.msg
-                        });
-                        return;
-                    }
+                console.log(r)
+                if (this.myUtils.isSuccess(r, this) == false) {
+                    return;
+                }
                 this.list=r.data.data;
                 this.qrcode_url=this.list.qrcode_url;
                 this.curr_total=this.list.curr_total;
@@ -138,6 +135,7 @@
 
             getPwd(val) {
                 if (val.length === 6) {
+                    console.log(val)
                     this.$axios
                         .post(
                             "/member/transfer?token=" + this.token,
@@ -151,29 +149,27 @@
                         .then(r => {
                             if (r) {
                                 console.log(r)
-                               if (r.data.error != 0) {
-                                    Toast({
+                                this.$refs["sendVal"].close();
+                                this.$refs.sendVal.$children[0].remov();
+                                 if (this.myUtils.isSuccess(r, this) == false) {
+                                    return;
+                                }                                
+                                Toast({
                                     message: r.data.msg
-                                    });
-                                    return;                                
-                                } else {
-                                    this.$refs["sendVal"].close();
-                                    this.$refs.sendVal.$children[0].remov();
-                                    Toast({
-                                        message: r.data.msg
-                                    });
-                                    this.$router.push({
-                                        name: "success",
-                                        query:{
-                                            title:'转出',
-                                            content:'恭喜您！转出成功，等待审核...',
-                                            name:'home',
-                                        }
-                                    })
-                                }
+                                });
+                                this.$router.push({
+                                    name: "success",
+                                    query:{
+                                        title:'转出',
+                                        content:'恭喜您！转出成功，等待审核...',
+                                        name:'home',
+                                    }
+                                })
+                                
                             }
                         })
                         .catch(err => {
+                            console.log("网络连接失败")
                             Indicator.close();
                             Toast("网络连接失败");
                         });

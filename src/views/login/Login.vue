@@ -81,13 +81,9 @@ export default {
           "mobile=" + this.name + "&login_pwd=" + this.password
         )
         .then(r => {
-            console.log(r)
-          if (r.data.error != 0) {
-            Toast({
-              message: r.data.msg
-            });
+            if (this.myUtils.isSuccess(r, this) == false) {
             return;
-          }
+            }
           Toast({
             message: r.data.msg
           });

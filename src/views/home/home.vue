@@ -1,99 +1,105 @@
 <template>
-
-      <scroller :on-refresh = "refresh" ref="myscroller"> 
+  <scroller :on-refresh="refresh" ref="myscroller">
     <div class="home">
-        <div class="gif">
-            <div class="gifs">
-                <img class="rotate" src="../../assets/images/wai.png" alt="">
-            </div>
-            <div class="nei">
-                <img class="rotates" src="../../assets/images/nei.png" alt="">
-            </div>
-            <div class="kuang">
-                <p>中级矿机 <span>{{list.rebot.middle}}/台</span> </p>
-                <p>高级矿机 <span>{{list.rebot.highe}}/台</span></p>
-                <p>超级矿机 <span>{{list.rebot.super}}/台</span></p>
-            </div>
+      <div class="gif">
+        <div class="gifs">
+          <img class="rotate" src="../../assets/images/wai.png" alt>
         </div>
-        <div class="button">
-            <div class="ict">
-                <ul>
-                    <li>全网算力</li>
-                    <li>今日获取算力</li>
-                    <li>可用</li>
-                </ul>
-                <ul>
-                    <li>{{list.all_power}}</li>
-                    <li>{{list.today_power}}</li>
-                    <li>
-                        <span>{{list.curr_total}}</span>
-                        <span>{{list.curr}}</span>                        
-                    </li>
-                </ul>
-            </div>
-            <div class="tibi">
-                <ul>
-                    <li @click="extract">提币</li>
-                    <li @click="transfer">转账</li>
-                </ul>
-            </div>
-            <div class="minxi">
-                <p>明细</p>
-                <img src="../../assets/images/minxi.png" alt="">
-            </div>
-           
+        <div class="nei">
+          <img class="rotates" src="../../assets/images/nei.png" alt>
         </div>
-        <div class="minxis">
-            <ul>
-                <li class="weight">
-                  
-                    <p>类型</p>
-                    <p>数量</p>
-                </li>
-                <li >
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-                <li>
-                    <p>电费消耗</p>
-                    <p>1.5EOS</p>
-                </li>
-            </ul>
+        <div class="kuang">
+          <p>
+            中级矿机
+            <span>{{datas.middle}}/台</span>
+          </p>
+          <p>
+            高级矿机
+            <span>{{datas.highe}}/台</span>
+          </p>
+          <p>
+            超级矿机
+            <span>{{datas.super}}/台</span>
+          </p>
         </div>
+      </div>
+      <div class="button">
+        <div class="ict">
+          <ul>
+            <li>全网算力</li>
+            <li>今日获取算力</li>
+            <li>可用</li>
+          </ul>
+          <ul>
+            <li>{{list.all_power}}</li>
+            <li>{{list.today_power}}</li>
+            <li>
+              <span>{{list.curr_total}}</span>
+              <span>{{list.curr}}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="tibi">
+          <ul>
+            <li @click="extract">提币</li>
+            <li @click="transfer">转账</li>
+          </ul>
+        </div>
+        <div class="minxi">
+          <p>明细</p>
+          <img src="../../assets/images/minxi.png" alt>
+        </div>
+      </div>
+      <div class="minxis">
+        <ul>
+          <li class="weight">
+            <p>类型</p>
+            <p>数量</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+          <li>
+            <p>电费消耗</p>
+            <p>1.5EOS</p>
+          </li>
+        </ul>
+      </div>
     </div>
-     </scroller>
+  </scroller>
 </template>
 <script>
 export default {
@@ -101,30 +107,23 @@ export default {
     return {
       count: 0,
       isLoading: false,
-      list:'',
-
+      list: [],
+      datas: []
     };
   },
-  created(){
-      
-      this.$axios.get(
-            "/member/getInfo?token=" + window.localStorage.getItem("token")
-        )
-        .then(r => {
-            console.log(r)
-             if (r.data.error != 0) {
-                Toast({
-                message: r.data.msg
-                });
-                return;
-            }
-           this.list=r.data.data;
-           console.log(this.list)
-        })
-        .catch(err => {
-            Toast("网络连接失败");
-        })
-    
+  created() {
+    this.$axios
+      .get("/member/getInfo?token=" + window.localStorage.getItem("token"))
+      .then(r => {
+        if (this.myUtils.isSuccess(r, this) == false) {
+          return;
+        }
+        this.list = r.data.data;
+        this.datas = r.data.data.rebot;
+      })
+      .catch(err => {
+        Toast("网络连接失败");
+      });
   },
   methods: {
     extract() {

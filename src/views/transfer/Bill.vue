@@ -5,11 +5,9 @@
           <span class="title">转账记录</span>
          </div>
         <div class="no_record" v-if="!isshow">
-            <img src="" alt="">
-                <span>没有找到相关记录</span>
+            <img src="../../assets/images/icon_null.png" alt="">
+            <span>没有找到相关记录</span>
         </div>
-       
-         
          <div class="content" v-if="isshow">
                 <ul>
                     <li class="clear" v-for="data in list">
@@ -30,23 +28,22 @@
                     
                 </ul>
          </div>
-         
     </div>
 </template>
 <script>
-import { Toast } from "vant";
-// import { Loadmore } from "mint-ui";
-// import { Indicator } from "mint-ui";
-// import { InfiniteScroll } from "mint-ui";
+import { Toast } from "mint-ui";
+import { Loadmore } from "mint-ui";
+import { Indicator } from "mint-ui";
+import { InfiniteScroll } from "mint-ui";
 export default {
   components: {
-    // Loadmore,
-    // InfiniteScroll
+    Loadmore,
+    InfiniteScroll
   },
   data() {
     return {
       list: [],
-      token: window.localStorage.getItem("token"),
+      token: "",
       url: "",
       page: 1, //分页页码
       offset: "",
@@ -59,7 +56,8 @@ export default {
     };
   },
   created() {
-    
+    this.token = window.localStorage.getItem("token");
+    this.getdata();
   },
   methods: {
     goback() {
@@ -69,21 +67,24 @@ export default {
       this.$router.push({ name: "transferSucceed" });
     },
     getdata(fn) {
+        console.log(111)
       this.offset = (this.page - 1) * this.limit;
       this.url =
-        "/Assets/getFlow?token=" +
+        "/member/getFlow?token=" +
         this.token +
         "&offset=" +
         this.offset +
         "&limit=" +
         this.limit;
       this.$axios.get(this.url).then(r => {
+          console.log(r)
         if (this.myUtils.isSuccess(r, this) == false) {
           return;
         }
 
         if (r.data.data.list.length == 0) {
           //下拉加载更多的关闭事件
+           this.isshow = false;
           this.$refs.myscroller.finishInfinite(2);
         }
         if (this.page === 1) {
@@ -94,9 +95,7 @@ export default {
           this.list = this.list.concat(r.data.data.list); //否则就把数据拼接
           this.$refs.myscroller.finishInfinite(2);
         }
-        // if (this.list.length == 0) {
-        //   this.isshow = false;
-        // }
+        
       }).catch(err => {
             Toast("网络连接失败");
         });
@@ -122,14 +121,25 @@ export default {
 * {
   box-sizing: border-box;
 }
-.section {
-  background: #151721;
-}
+
 .no_record {
   margin-top: 1rem;
-  text-align: center;
   padding-top: 30px;
-  color: #cdcdcd;
+  img{
+      display: block;
+      width:1rem;
+      height:1rem;
+      margin: 0 auto;
+  }
+  span{
+      display: inline-block;
+      width: 100%;
+      color:#D2E6E6;
+    text-align: center;
+    font-size: 0.13rem;
+    margin-top:0.2rem;
+
+  }
 }
 .head {
   height: 0.7rem;
@@ -139,7 +149,7 @@ export default {
   width: 100%;
   opacity: 1;
   z-index: 999;
-  background: #151721;
+  background: #282D41;
 }
 
 .head .title {

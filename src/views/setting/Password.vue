@@ -71,13 +71,9 @@ export default {
           "&confirm_pwd=" + this.confirm_pwd
         )
         .then(r => {
-          console.log(r);
-            if (r.data.error != 0) {
-            Toast({
-            message: r.data.msg
-            });
-            return;
-            }
+         if (this.myUtils.isSuccess(r, this) == false) {
+          return;
+        }
           Toast(r.data.msg);
           this.$router.push({
             name: "success",

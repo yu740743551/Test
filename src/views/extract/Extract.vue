@@ -7,40 +7,27 @@
             </div>
             <div class="content">
                 <div class="top">
-                    <h3>200 EB</h3>
+                    <h3>{{curr_total}} EOS</h3>
                     <h4>可用金额</h4>
                 </div>
                 <form class="main">
                     <div class="con_row">
                         <div class="con_col tel">
+                            <h3>提币数量 <span>(EOS)</span></h3>
+                            <input type="number" placeholder="请输入提币数量" value="" v-model.trim.lazy="number" @click="myUtils.iosActive($event)" ref='2' id='fok1' onkeyup="value=value.replace(/[^\d]/g,'')">
+                        </div>
+                         <p style="color:#777684">矿工费：<span>{{charge_num}}</span> </p>
+                    </div>
+                    <div class="con_row">
+                        <div class="con_col tel">
                             <h3>提币地址</h3>
                             <input class="dizhi"  @click="myUtils.iosActive($event)" ref='1' id='fok' type="text" placeholder="请输入提币地址"  v-model="mobile">
                             <!-- <p class="add" @click="scan">添加</p> -->
-                            
                         </div>
-                        <p style="color:#777684">矿工费：000</p>
+                       
                     </div>     
-                    <!-- <div class="con_row mt-10">
-                        <div class="con_col tel">
-                            <h4> 矿工费：</h4>
-                            <p>{{charge_num}}</p>
-                        </div>
-                    </div> -->
-                    <div class="con_row">
-                        <div class="con_col tel">
-                            <h3>提币数量 <span></span></h3>
-                            <input type="text" placeholder="请输入提币数量" value="" v-model.trim.lazy="number" @click="myUtils.iosActive($event)" ref='2' id='fok1' onkeyup="value=value.replace(/[^\d]/g,'')">
-                        </div>
-                    </div>
-                    
-                        
-                    
-                    
                 </form>
-            
                 <p class="btn btn_ture" @click="getmoney">提币</p>
-
-            
             </div>
         </div>
         <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard>
@@ -59,10 +46,11 @@ export default {
     return {
       mobile: "",
       number: "", //用户输入的转账额度
-      enable: "", //可用eb总数量
+      curr_total: "", //可用eos总数量
       charge: "", //提币手续费比例
       charge_num: "0 EB", //手续费金额
-      newBuy: ""
+      newBuy: "",
+      token: "",
     };
   },
   watch: {
@@ -74,20 +62,21 @@ export default {
   created() {
     this.mobile = this.$route.query.mobile;
     // 获取转账信息接口
-    this.token = window.localStorage.getItem("token");
-    var url = "/Assets/getTransferInfo?token=" + this.token;
-    // this.$axios
-    //   .get(url)
-    //   .then(r => {
-    //     if (this.myUtils.isSuccess(r, this) == false) {
-    //       return;
-    //     }
-    //     this.enable = r.data.data.enable_eb;
-    //     this.charge = r.data.data.eb_withdraw_charge;
-    //   })
-    //   .catch(err => {
-    //     Toast("网络连接失败");
-    //   });
+     this.$axios.get(
+            "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
+        )
+        .then(r => {
+            console.log(r)
+             if (this.myUtils.isSuccess(r, this) == false) {
+                return;
+            }
+            this.list=r.data.data;
+            this.curr_total=this.list.curr_total;
+            this.charge=this.list.withdraw_charge;
+        })
+        .catch(err => {
+            Toast("网络连接失败");
+        })
   },
   methods: {
     goback() {
@@ -101,34 +90,34 @@ export default {
     // },
 
     getmoney() {
-      // if (
-      //   this.mobile == null ||
-      //   this.mobile == "" ||
-      //   this.mobile == undefined
-      // ) {
-      //   Toast("提币账户不能为空");
-      //   return;
-      // }
+      if (
+        this.mobile == null ||
+        this.mobile == "" ||
+        this.mobile == undefined
+      ) {
+        Toast("提币账户不能为空");
+        return;
+      }
 
-      // if (
-      //   this.number == null ||
-      //   this.number == "" ||
-      //   this.number == undefined ||
-      //   this.number == 0
-      // ) {
-      //   Toast("提币数量不能为空");
-      //   return;
-      // } else if (this.number < 100) {
-      //   Toast("提币数量不能小于100");
-      //   return;
-      // } else if (Number(this.number) > Number(this.enable)) {
-      //   this.number = this.enable;
-      //   Toast("提币数量不能大于可用eb总数量");
-      //   return;
-      // } else if (this.number % 100 != 0) {
-      //   Toast("提币数量必须为100的整数倍");
-      //   return;
-      // }
+      if (
+        this.number == null ||
+        this.number == "" ||
+        this.number == undefined ||
+        this.number == 0
+      ) {
+        Toast("提币数量不能为空");
+        return;
+      } else if (this.number < 100) {
+        Toast("提币数量不能小于100");
+        return;
+      } else if (Number(this.number) > Number(this.curr_total)) {
+        this.number = this.curr_total;
+        Toast("提币数量不能大于可用eb总数量");
+        return;
+      } else if (this.number % 100 != 0) {
+        Toast("提币数量必须为100的整数倍");
+        return;
+      }
       this.newBuy = "请输入您的支付密码";
       this.$refs["sendVal"].show();
     },
@@ -255,7 +244,7 @@ export default {
     }
     h4 {
       color: #f1f1f1;
-      font-size: 0.15rem;
+      font-size: 0.14rem;
       text-align: center;
     }
   }
@@ -312,6 +301,7 @@ export default {
       color: #21fff6;
       width: 100%;
       word-wrap: break-word;
+      font-size:0.13rem;
     }
     .add {
       position: absolute;

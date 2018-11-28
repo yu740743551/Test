@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <div class="minxi" @click="register">
+    <div class="main">
+        <div class="minxis" @click="register">
             <p>注册</p>
             <img src="../../assets/images/btn_bg@2x.png" alt="">
         </div>
@@ -71,6 +71,10 @@ import { Toast } from 'vant';
     };
 </script>
 <style lang="scss" scoped>
+.main{
+    height:100%;
+    padding-top:0.9rem;
+}
     .minxi {
         margin-top: 1.6rem;
     }
@@ -87,12 +91,13 @@ import { Toast } from 'vant';
     }
     
     .minxis {
-        margin-top: 0.3rem;
+        margin-top: 0.55rem;
     }
     
     .minxis img {
         width: 2.4rem;
         margin: 0 auto;
+        margin-top: -0.2rem;
     }
     
     .minxis p {
