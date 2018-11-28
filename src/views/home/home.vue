@@ -157,6 +157,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   min-height: 100vh;
+  background: #282d41;
   .p1 {
     width: 100%;
     text-align: center;
