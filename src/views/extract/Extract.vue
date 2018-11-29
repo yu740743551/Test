@@ -1,42 +1,64 @@
 <template>
-    <div class="section">
-        <div class="sections">
-            <div class="head">
-            <i class="iconfont icon-fanhui" @click="goback"></i>
-            <span class="title">提币</span>
-            </div>
-            <div class="content">
-                <div class="top">
-                    <h3>{{curr_total}} EOS</h3>
-                    <h4>可用金额</h4>
-                </div>
-                <form class="main">
-                    <div class="con_row">
-                        <div class="con_col tel">
-                            <h3>提币数量 <span>(EOS)</span></h3>
-                            <input type="number" placeholder="请输入提币数量" value="" v-model.trim.lazy="number" @click="myUtils.iosActive($event)" ref='2' id='fok1' onkeyup="value=value.replace(/[^\d]/g,'')">
-                        </div>
-                         <p style="color:#777684">矿工费：<span>{{charge_num}}</span> </p>
-                    </div>
-                    <div class="con_row">
-                        <div class="con_col tel">
-                            <h3>提币地址</h3>
-                            <input class="dizhi"  @click="myUtils.iosActive($event)" ref='1' id='fok' type="text" placeholder="请输入提币地址"  v-model="mobile">
-                            <!-- <p class="add" @click="scan">添加</p> -->
-                        </div>
-                       
-                    </div>     
-                </form>
-                <p class="btn btn_ture" @click="getmoney">提币</p>
-            </div>
+  <div class="section">
+    <div class="sections">
+      <div class="head">
+        <i class="iconfont icon-fanhui" @click="goback"></i>
+        <span class="title">提币</span>
+      </div>
+      <div class="content">
+        <div class="top">
+          <h3>{{curr_total}} {{userInfos.curr}}</h3>
+          <h4>可用金额</h4>
         </div>
-        <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard>
+        <form class="main">
+          <div class="con_row">
+            <div class="con_col tel">
+              <h3>
+                提币数量
+                <span>({{userInfos.curr}})</span>
+              </h3>
+              <input
+                type="number"
+                placeholder="请输入提币数量"
+                value
+                v-model.trim.lazy="number"
+                @click="myUtils.iosActive($event)"
+                ref="2"
+                id="fok1"
+                onkeyup="value=value.replace(/[^\d]/g,'')"
+              >
+            </div>
+            <p style="color:#777684">
+              矿工费：
+              <span>{{charge_num}}</span>
+            </p>
+          </div>
+          <div class="con_row">
+            <div class="con_col tel">
+              <h3>提币地址</h3>
+              <input
+                class="dizhi"
+                @click="myUtils.iosActive($event)"
+                ref="1"
+                id="fok"
+                type="text"
+                placeholder="请输入提币地址"
+                v-model="mobile"
+              >
+              <!-- <p class="add" @click="scan">添加</p> -->
+            </div>
+          </div>
+        </form>
+        <p class="btn btn_ture" @click="getmoney">提币</p>
+      </div>
     </div>
-   
+    <pay-keyboard ref="sendVal" :newBuy="newBuy" @value="getPwd"></pay-keyboard>
+  </div>
 </template>
 <script>
 import { Toast } from "vant";
 import PayKeyboard from "@/components/PayKeyboard";
+import { mapMutations, mapGetters } from "vuex";
 // import  '@/assets/js/inputs.js'
 export default {
   components: {
@@ -50,7 +72,7 @@ export default {
       charge: "", //提币手续费比例
       charge_num: "0 EOS", //手续费金额
       newBuy: "",
-      token:window.localStorage.getItem("token"),
+      token: window.localStorage.getItem("token")
     };
   },
   watch: {
@@ -59,29 +81,33 @@ export default {
         parseInt((this.charge * this.number * 100) / 100) + " EB";
     }
   },
+  computed: {
+    ...mapGetters(["userInfos"])
+  },
   created() {
     this.mobile = this.$route.query.mobile;
     Toast.loading({
-        mask: true,
-        message: "加载中...",
-        duration: 10000
-      });
+      mask: true,
+      message: "加载中...",
+      duration: 10000
+    });
     // 获取转账信息接口
-     this.$axios.get(
-            "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
-        )
-        .then(r => {
-            Toast.clear();
-             if (this.myUtils.isSuccess(r, this) == false) {
-                return;
-            }
-            this.list=r.data.data;
-            this.curr_total=this.list.curr_total;
-            this.charge=this.list.withdraw_charge;
-        })
-        .catch(err => {
-            Toast("网络连接失败");
-        })
+    this.$axios
+      .get(
+        "/member/getTransferInfo?token=" + window.localStorage.getItem("token")
+      )
+      .then(r => {
+        Toast.clear();
+        if (this.myUtils.isSuccess(r, this) == false) {
+          return;
+        }
+        this.list = r.data.data;
+        this.curr_total = this.list.curr_total;
+        this.charge = this.list.withdraw_charge;
+      })
+      .catch(err => {
+        Toast("网络连接失败");
+      });
   },
   methods: {
     goback() {
@@ -95,7 +121,7 @@ export default {
     // },
 
     getmoney() {
-      if (this.myUtils.isNull(this.mobile)==true) {
+      if (this.myUtils.isNull(this.mobile) == true) {
         Toast("提币数量不能为空");
         return;
       } else if (this.number < 5) {
@@ -106,7 +132,7 @@ export default {
         Toast("提币数量不能大于可用eb总数量");
         return;
       }
-      if (this.myUtils.isNull(this.mobile)==true) {
+      if (this.myUtils.isNull(this.mobile) == true) {
         Toast("提币账户不能为空");
         return;
       }
@@ -115,49 +141,47 @@ export default {
     },
     getPwd(val) {
       if (val.length === 6) {
-       Toast.loading({
-        mask: true,
-        message: "加载中...",
-        duration: 10000
-      });
+        Toast.loading({
+          mask: true,
+          message: "加载中...",
+          duration: 10000
+        });
         this.$axios
-            .post(
-                "/member/withdraw?token=" + this.token,
-                "&withdraw_total=" +
-                this.number +
-                "&wallet_address=" +
-                this.mobile +
-                "&pay_pwd=" +
-                val
-            )
-            .then(r => {
-                 Toast.clear();
-                if (r) {
-                    console.log(r)
-                    this.$refs["sendVal"].close();
-                    this.$refs.sendVal.$children[0].remov();
-                    if (this.myUtils.isSuccess(r, this) == false) {
-                        return;
-                    }                                
-                    Toast({
-                        message: r.data.msg
-                    });
-                   this.$router.push({
-                        name: "success",
-                        query:{
-                            title:'提币',
-                            content:'恭喜您！提币成功，等待审核...',
-                            name:'home',
-                        }
-                    });
-                    
+          .post(
+            "/member/withdraw?token=" + this.token,
+            "&withdraw_total=" +
+              this.number +
+              "&wallet_address=" +
+              this.mobile +
+              "&pay_pwd=" +
+              val
+          )
+          .then(r => {
+            Toast.clear();
+            if (r) {
+              console.log(r);
+              this.$refs["sendVal"].close();
+              this.$refs.sendVal.$children[0].remov();
+              if (this.myUtils.isSuccess(r, this) == false) {
+                return;
+              }
+              Toast({
+                message: r.data.msg
+              });
+              this.$router.push({
+                name: "success",
+                query: {
+                  title: "提币",
+                  content: "恭喜您！提币成功，等待审核...",
+                  name: "home"
                 }
-            })
-            .catch(err => {
-                
-                Indicator.close();
-                Toast("网络连接失败");
-            });
+              });
+            }
+          })
+          .catch(err => {
+            Indicator.close();
+            Toast("网络连接失败");
+          });
       }
     }
   }
@@ -186,7 +210,7 @@ export default {
 }
 
 .head .title {
-  color: #38D4CB;
+  color: #38d4cb;
   line-height: 0.4rem;
   font-size: 0.2rem;
   position: absolute;
@@ -195,7 +219,7 @@ export default {
 }
 
 .head i {
-  color: #38D4CB;
+  color: #38d4cb;
   line-height: 0.4rem;
   font-size: 0.22rem;
   text-align: left;
@@ -235,7 +259,7 @@ export default {
       color: #d2e6e6;
       font-size: 0.15rem;
       text-align: left;
-      margin: 0.16rem 0 0.2rem 0;
+      margin-bottom: 0.2rem;
       span {
         color: #777684;
       }
@@ -279,7 +303,7 @@ export default {
       color: #21fff6;
       width: 100%;
       word-wrap: break-word;
-      font-size:0.13rem;
+      font-size: 0.13rem;
     }
     .add {
       position: absolute;
