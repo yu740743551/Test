@@ -11,12 +11,9 @@
           <h4>可用金额</h4>
         </div>
         <form class="main">
-          <div class="con_row">
+          <!-- <div class="con_row">
             <div class="con_col tel">
-              <h3>
-                提币数量
-                <span>({{userInfos.curr}})</span>
-              </h3>
+              <h3>提币数量({{userInfos.curr}})</h3>
               <input
                 type="number"
                 placeholder="请输入提币数量"
@@ -31,6 +28,26 @@
             <p style="color:#777684">
               矿工费：
               <span>{{charge_num}}</span>
+            </p>
+          </div>-->
+          <div class="con_row">
+            <div class="con_col tel">
+              <h3>提币数量({{userInfos.curr}})</h3>
+              <input
+                class="dizhi"
+                @click="myUtils.iosActive($event)"
+                ref="1"
+                id="fok"
+                type="number"
+                placeholder="请输入提币数量"
+                v-model.trim.lazy="number"
+                onkeyup="value=value.replace(/[^\d]/g,'')"
+              >
+              <!-- <p class="add" @click="scan">添加</p> -->
+            </div>
+            <p style="color:#777684">
+              矿工费：
+              <span>{{charge_num}}{{userInfos.curr}}</span>
             </p>
           </div>
           <div class="con_row">
@@ -70,15 +87,14 @@ export default {
       number: "", //用户输入的转账额度
       curr_total: "", //可用eos总数量
       charge: "", //提币手续费比例
-      charge_num: "0 EOS", //手续费金额
+      charge_num: "0", //手续费金额
       newBuy: "",
       token: window.localStorage.getItem("token")
     };
   },
   watch: {
     number: function() {
-      this.charge_num =
-        parseInt((this.charge * this.number * 100) / 100) + " EB";
+      this.charge_num = parseInt((this.charge * this.number * 100) / 100);
     }
   },
   computed: {
@@ -121,7 +137,7 @@ export default {
     // },
 
     getmoney() {
-      if (this.myUtils.isNull(this.mobile) == true) {
+      if (this.myUtils.isNull(this.number) == true) {
         Toast("提币数量不能为空");
         return;
       } else if (this.number < 5) {
@@ -179,7 +195,6 @@ export default {
             }
           })
           .catch(err => {
-            Indicator.close();
             Toast("网络连接失败");
           });
       }
