@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main">
         <div class="head">
             <i class="iconfont icon-fanhui" @click="goback"></i>
             <span class="title">修改支付密码</span>
@@ -9,7 +9,7 @@
         <input type="password" @click="myUtils.iosActive($event)" ref='1' placeholder="输入旧密码" v-model="old_pwd">
         <input type="password" @click="myUtils.iosActive($event)" ref='2'  placeholder="输入新密码" v-model="new_pwd">
         <input type="password" @click="myUtils.iosActive($event)" ref='3'  placeholder="重复新密码" v-model="renew_pwd">
-        <p class="pass" @click="forgetpassword">忘记支付密码？</p>
+        <p class="pass" @click="forgetpassword">忘记支付密码</p>
         <div class="btn" @click="sumbit">确认修改</div>
        </div>
 
@@ -98,6 +98,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .head {
   height: 0.4rem;
   position: fixed;
@@ -151,7 +152,7 @@ export default {
     font-size:0.11rem;
     color:rgba(232,97,97,1);
   margin-top: 0.1rem;
-  text-align: center
+  text-align: right;
 }
   .btn {
   width: 100%;

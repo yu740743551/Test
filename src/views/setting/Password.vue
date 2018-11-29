@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main">
         <div class="head">
             <i class="iconfont icon-fanhui" @click="goback"></i>
             <span class="title">修改登录密码</span>
@@ -101,6 +101,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+
 .head {
   height: 0.4rem;
   position: fixed;
