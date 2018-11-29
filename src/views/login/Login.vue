@@ -22,7 +22,7 @@
           </div>
           
           <div class="forget" >
-              <p @click="forgetpassword">忘记密码？</p>
+              <p @click="forgetpassword">忘记密码</p>
           </div>
           <div class="sumbit" @click="sumbit">
             <p class="btn">登录</p>
@@ -190,6 +190,7 @@ export default {
       width: 0.6rem;
       font-size: 0.09rem;
       float: right;
+      text-align: right;
     }
   }
   .sumbit {
