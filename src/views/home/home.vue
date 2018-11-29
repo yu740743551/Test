@@ -1,5 +1,5 @@
 <template>
-  <scroller :on-refresh="refresh" ref="myscroller" >
+  <scroller :on-refresh="refresh" ref="myscroller" :on-infinite="infinite">
     <div class="home">
       <div class="gif">
         <div class="gifs">
@@ -58,7 +58,7 @@
             <p>数量</p>
           </li>
           <li v-for="data in bill">
-            <p>{{data.type}}</p>
+            <p>{{data.flowdes}}</p>
             <p>{{data.createtime}}</p>
             <p :class="{'sum':data.symbol=='+'}"><span>{{data.symbol}}</span>{{data.amount}}</p>
           </li>
@@ -103,11 +103,21 @@ export default {
         name: "transfer"
       });
     },
+    // 下拉刷新
     refresh() {
        this.getdata();
-      setTimeout(r => {
-        this.$refs["myscroller"].finishPullToRefresh();
-      }, 500);
+       this.page=1;
+       this.getbill();
+     
+    },
+    // 上拉加载
+    infinite() {
+      if (this.bill == "") {
+        this.getbill();
+        return
+      }
+      this.page++;
+      this.getbill();
     },
     getdata(){
         Toast.loading({
@@ -135,17 +145,38 @@ export default {
         .catch(err => {
             Toast("网络连接失败");
         });
+        this.getbill();
+    },
+    getbill(){
+        this.offset = (this.page - 1) * this.limit;
         this.$axios
             .get("/member/getPower?token=" + window.localStorage.getItem("token")+
-            "&offset=0&limit=10" 
+            "&offset=" +
+            this.offset +
+            "&limit=" +
+            this.limit
         )
         .then(r => {
             Toast.clear();
             if (this.myUtils.isSuccess(r, this) == false) {
             return;
             }
-            this.bill = r.data.data.list;
-           
+            if (this.page == 1) {
+            this.bill = r.data.data.list; //如果是想下滑动，刷新数据 就让list等于最新数据
+            //上刷新的关闭事件
+            this.$refs.myscroller.finishPullToRefresh(2);
+            this.$refs.myscroller.finishInfinite(2);
+            if(this.bill.length == 0){
+                this.$refs.myscroller.finishInfinite(2);
+            }
+            } else {
+            this.bill = this.bill.concat(r.data.data.list); //否则就把数据拼接
+            this.$refs.myscroller.finishInfinite(2);
+            if(this.bill.length == 0){
+                this.$refs.myscroller.finishInfinite(2);
+            }
+            }
+        
         })
         .catch(err => {
             Toast("网络连接失败");
@@ -317,7 +348,7 @@ export default {
 }
 
 .minxis ul li p.sum {
-    color:e92312;
+    color:#e92312;
 }
 .minxis ul li p{
   width: 33.33%;
