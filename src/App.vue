@@ -43,7 +43,7 @@ export default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.4s cubic-bezier(0.22, 0, 0.1, 1);
-  background: #282D41;
+  background:linear-gradient(-180deg, #000000,#333a52);
 }
 
 .slide-left-enter,
@@ -82,12 +82,12 @@ export default {
   color: #ccc !important;
 }
 #outer-xpny1 {
-  background: #000;
+  /* background: #000; */
 }
 </style>
 <style>
 ._v-container {
-  background: #000;
+  background: linear-gradient(-180deg, #000000,#333a52);
 }
 </style>
 
