@@ -38,10 +38,9 @@
                 @click="myUtils.iosActive($event)"
                 ref="1"
                 id="fok"
-                type="number"
+                type="text"
                 placeholder="请输入提币数量"
                 v-model.trim.lazy="number"
-                onkeyup="value=value.replace(/[^\d]/g,'')"
               >
               <!-- <p class="add" @click="scan">添加</p> -->
             </div>
