@@ -9,7 +9,7 @@
           <li>中级矿机</li>
           <li>
             <span @click="minus(1)">-</span>
-            <input ref="1" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num1">
+            <input ref="1" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num1" @click="myUtils.iosActive($event)">
             <span @click="add(1)">+</span>
           </li>
           <li>
@@ -22,7 +22,7 @@
           <li>高级矿机</li>
           <li>
             <span @click="minus(2)">-</span>
-            <input ref="2" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num2">
+            <input ref="2" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num2" @click="myUtils.iosActive($event)">
             <span @click="add(2)">+</span>
           </li>
           <li>
@@ -35,7 +35,7 @@
           <li>超级矿机</li>
           <li>
             <span @click="minus(3)">-</span>
-            <input ref="3" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num3">
+            <input ref="3" type="number" oninput="if(value.length>2)value=value.slice(0,2)" v-model="num3" @click="myUtils.iosActive($event)">
             <span @click="add(3)">+</span>
           </li>
           <li>
@@ -62,6 +62,9 @@ export default {
   methods: {
     upgrade(a) {
       var val = this.$refs[a].value;
+      if(val==NaN || val ==''){
+         val=1;
+      }
       if (a == 1) {
         this.$router.push({
           name: "upgrade",
