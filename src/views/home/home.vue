@@ -60,9 +60,11 @@
           <li v-for="data in bill">
             <p>{{data.flowdes}}</p>
             <p>{{data.createtime}}</p>
-            <p :class="{'sum':data.symbol=='+'}"><span>{{data.symbol}}</span>{{data.amount}}</p>
+            <p :class="{'sum':data.symbol=='+'}">
+              <span>{{data.symbol}}</span>
+              {{data.amount}}
+            </p>
           </li>
-          
         </ul>
       </div>
     </div>
@@ -77,18 +79,18 @@ export default {
     return {
       count: 0,
       isLoading: false,
-      offset: '',
+      offset: "",
       page: 1,
       limit: 10,
       list: [],
       datas: [],
-      bill: [],
+      bill: []
     };
   },
   created() {
     this.getdata();
   },
-   computed: {
+  computed: {
     ...mapGetters(["userInfos"])
   },
   methods: {
@@ -105,81 +107,81 @@ export default {
     },
     // 下拉刷新
     refresh() {
-       this.getdata();
-       this.page=1;
-       this.getbill();
-     
+      this.getdata();
+      this.page = 1;
+      this.getbill();
     },
     // 上拉加载
     infinite() {
       if (this.bill == "") {
         this.getbill();
-        return
+        return;
       }
       this.page++;
       this.getbill();
     },
-    getdata(){
-        Toast.loading({
+    getdata() {
+      Toast.loading({
         mask: true,
         message: "加载中...",
         duration: 10000
-        });
-        this.$axios
+      });
+      this.$axios
         .get("/member/getInfo?token=" + window.localStorage.getItem("token"))
         .then(r => {
-            Toast.clear();
-            console.log(r)
-            if (this.myUtils.isSuccess(r, this) == false) {
+          Toast.clear();
+          console.log(r);
+          if (this.myUtils.isSuccess(r, this) == false) {
             return;
-            }
-            this.list = r.data.data;
-            this.datas = r.data.data.rebot;
-            mapObject(this.list, (val, key) => {
+          }
+          this.list = r.data.data;
+          this.datas = r.data.data.rebot;
+          mapObject(this.list, (val, key) => {
             this.set_userInfo({ val, key });
-             });
-            mapObject(this.datas, (val, key) => {
-                this.set_userInfo({ val, key });
-            });
+          });
+          mapObject(this.datas, (val, key) => {
+            this.set_userInfo({ val, key });
+          });
         })
         .catch(err => {
-            Toast("网络连接失败");
+          Toast("网络连接失败");
         });
-        this.getbill();
+      this.getbill();
     },
-    getbill(){
-        this.offset = (this.page - 1) * this.limit;
-        this.$axios
-            .get("/member/getPower?token=" + window.localStorage.getItem("token")+
+    getbill() {
+      this.offset = (this.page - 1) * this.limit;
+      this.$axios
+        .get(
+          "/member/getPower?token=" +
+            window.localStorage.getItem("token") +
             "&offset=" +
             this.offset +
             "&limit=" +
             this.limit
         )
         .then(r => {
-            Toast.clear();
-            if (this.myUtils.isSuccess(r, this) == false) {
+          Toast.clear();
+          if (this.myUtils.isSuccess(r, this) == false) {
             return;
-            }
-            if (this.page == 1) {
+          }
+          if (this.page == 1) {
             this.bill = r.data.data.list; //如果是想下滑动，刷新数据 就让list等于最新数据
             //上刷新的关闭事件
             this.$refs.myscroller.finishPullToRefresh(2);
             this.$refs.myscroller.finishInfinite(2);
-            if(this.bill.length == 0){
-                this.$refs.myscroller.finishInfinite(2);
+            if (this.bill.length == 0) {
+              this.$refs.myscroller.finishInfinite(2);
             }
-            } else {
+          } else {
             this.bill = this.bill.concat(r.data.data.list); //否则就把数据拼接
             this.$refs.myscroller.finishInfinite(2);
-            if(this.bill.length == 0){
-                this.$refs.myscroller.finishInfinite(2);
+            if (this.bill.length == 0) {
+              this.$refs.myscroller.finishInfinite(2);
             }
-            }
-        
+          }
         })
         .catch(err => {
-            Toast("网络连接失败");
+          Toast("网络连接失败");
         });
     }
   }
@@ -187,7 +189,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  min-height: 100vh;
+  // min-height: 100vh;
   background: #282d41;
   .p1 {
     width: 100%;
@@ -348,13 +350,11 @@ export default {
 }
 
 .minxis ul li p.sum {
-    color:#e92312;
+  color: #e92312;
 }
-.minxis ul li p{
+.minxis ul li p {
   width: 33.33%;
 }
-
-
 
 .minxis ul .weight p {
   font-size: 0.15rem;
