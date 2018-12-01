@@ -12,7 +12,7 @@
           <img alt src="../../assets/images/code.png">
         </div>
         <h4>官方升级地址（下方地址长按可复制）</h4>
-        <h3>0x8547274222E174999aDA60D64b44b2a699E48390</h3>
+        <h3>1LtyywPL7N1MxgokLQNsYQb2ezhu85WVof</h3>
         <div class="danjia fl_box">
           <p>单价/EOS</p>
           <p>{{price}}</p>
