@@ -10,9 +10,11 @@ import Upgrade from '@/views/webapp/Upgrade'
 import Setting from '@/views/setting/Setting'
 import Success from '@/views/setting/Success'
 import Register from '@/views/setting/Register'
-import Extract from '@/views/extract/Extract'
 import Password from '@/views/setting/Password'
 import Paypassword from '@/views/setting/Paypassword'
+//提币
+import Extract from '@/views/extract/Extract'
+import ExtractBill from '@/views/extract/ExtractBill'
 //转账
 import Transfer from '@/views/transfer/Transfer'
 import Bill from '@/views/transfer/Bill'
@@ -42,6 +44,13 @@ export default [{
         name: 'extract',
         meta: { index: 4 },
         component: Extract
+
+    },
+    {
+        path: '/extractBill',
+        name: 'extractBill',
+        meta: { index: 5 },
+        component: ExtractBill
 
     },
 

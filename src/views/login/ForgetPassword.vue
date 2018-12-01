@@ -7,7 +7,7 @@
         <div class="centent">
             
             <img src="../../assets/images/icon_contact.png" alt="">
-            <h3>客服微信号：TY--120</h3>
+            <h3>客服微信号：hkex001</h3>
             <h4>修改登录密码/支付密码联系客服</h4>
 
         </div>
