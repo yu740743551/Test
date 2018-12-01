@@ -1,10 +1,9 @@
 <template>
-    <div id="app">
-        <transition :name="transitionName">
-            <router-view class="child-view"></router-view>
-           
-        </transition>
-    </div>
+  <div id="app">
+    <transition :name="transitionName">
+      <router-view class="child-view"></router-view>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -43,7 +42,7 @@ export default {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.4s cubic-bezier(0.22, 0, 0.1, 1);
-  background:#282d41;
+  background: #282d41;
 }
 
 .slide-left-enter,
@@ -87,7 +86,7 @@ export default {
 </style>
 <style>
 ._v-container {
-  background: linear-gradient(-180deg, #000000,#333a52);
+  background: linear-gradient(-180deg, #000000, #333a52);
 }
 </style>
 
