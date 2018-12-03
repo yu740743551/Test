@@ -134,7 +134,7 @@ export default {
                 return;
             } else if (Number(this.number) > Number(this.curr_total)) {
                 this.number = this.curr_total;
-                Toast("转出数量不能大于可用eb总数量");
+                Toast("可用额度不足");
                 return;
             }
             this.newBuy = "请输入您的支付密码";
@@ -278,7 +278,7 @@ export default {
             height: 1.3rem;
             margin: 0.05rem auto 0.05rem auto;
         }
-        h3::last-child {
+        h3:last-child {
             font-size: 0.1rem;
         }
         h3 {

@@ -42,7 +42,6 @@
                 placeholder="请输入提币数量"
                 v-model.trim.lazy="number"
               >
-              <!-- <p class="add" @click="scan">添加</p> -->
             </div>
             <p style="color:#777684;margin-top: 0.03rem;">
               矿工费：
@@ -60,7 +59,6 @@
                 placeholder="请输入提币地址"
                 v-model="mobile"
               >
-              <!-- <p class="add" @click="scan">添加</p> -->
             </div>
           </div>
         </form>
@@ -134,11 +132,7 @@ export default {
       this.$router.push({ name: "home" });
     },
 
-    // scan() {
-    //   this.$router.push({
-    //     name: "ecanPay"
-    //   });
-    // },
+
 
     getmoney() {
       if (this.myUtils.isNull(this.number) == true) {
@@ -149,7 +143,7 @@ export default {
         return;
       } else if (Number(this.number) > Number(this.curr_total)) {
         this.number = this.curr_total;
-        Toast("提币数量不能大于可用eb总数量");
+        Toast("可用额度不足");
         return;
       }
       if (this.myUtils.isNull(this.mobile) == true) {
