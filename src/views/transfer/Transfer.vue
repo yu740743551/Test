@@ -136,7 +136,7 @@
                     return;
                 } else if (Number(this.number) > Number(this.curr_total)) {
                     this.number = this.curr_total;
-                    Toast("转出数量不能大于可用eb总数量");
+                    Toast("可用额度不足");
                     return;
                 }
                 if (this.number % 1 != 0) {
