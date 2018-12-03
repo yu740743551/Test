@@ -136,8 +136,8 @@ export default [{
     {
         path: '*',
         meta: { index: 0 },
-        redirect: '/Login',
-        component: Login,
+        redirect: '/Home',
+        component: Home
     }
 
 

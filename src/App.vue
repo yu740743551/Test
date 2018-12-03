@@ -27,6 +27,9 @@ export default {
 };
 </script>
 <style>
+* {
+  box-sizing: border-box;
+}
 #app {
   width: 100%;
   height: 100%;
@@ -87,6 +90,7 @@ export default {
 <style>
 ._v-container {
   background: linear-gradient(-180deg, #000000, #333a52);
+  /* z-index: 1; */
 }
 </style>
 
