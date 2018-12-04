@@ -42,6 +42,7 @@
                 placeholder="请输入提币数量"
                 v-model.trim.lazy="number"
               >
+              <!-- <p class="add" @click="scan">添加</p> -->
             </div>
             <p style="color:#777684;margin-top: 0.03rem;">
               矿工费：
@@ -132,7 +133,11 @@ export default {
       this.$router.push({ name: "home" });
     },
 
-
+    // scan() {
+    //   this.$router.push({
+    //     name: "ecanPay"
+    //   });
+    // },
 
     getmoney() {
       if (this.myUtils.isNull(this.number) == true) {

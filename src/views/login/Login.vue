@@ -35,9 +35,7 @@
 </template>
 
 <script>
-import LangSelect from "@/components/LangSelect";
 import { Toast } from 'vant';
-import SIdentify from "@/components/VerificationCode";
 export default {
   components: {},
   data() {
